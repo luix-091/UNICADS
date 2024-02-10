@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+header {
+    display: flex;
+    width: 100%;
+    background: linear-gradient(to left, #36519a 10%, #7caeff 60%, #afdfff);
+    color: #fff;
+}
+
+body{
+    background-color: rgb(215, 236, 255);
+}
+
+.header-content{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.header-content a{
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 56px;
+    font-family: 'Kanit', sans-serif;
+    text-decoration: none;
+    color: #36519a;
+    margin-left: 30px;
+    border-radius: 5px;
+}
+
+.header-content a:hover{
+    transition: 0.5s all;
+    opacity: 0.7;
+}
+
+.header-content img{
+    margin-right: 10px;
+    height: 100px;
+}
+
+main{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.introducao{
+    padding: 20px;
+    margin: 10px;
+    max-width: 900px;
+    font-size: 24px;
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+    border-radius: 20px;
+    color: #36519a;
+}
+
+.sobre{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.sobre img{
+    height: 300px;
+    margin-left: 500px;
+    border-radius: 500px;
+}
+
+.sobre img:hover{
+    transition: all 0.3s ease;
+    transform: scale(1.1);
+}
+
+.sobre-text{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    max-width: 400px;
+    min-height: 300px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-family: 'Quicksand', sans-serif;
+    justify-content: flex-start;
+}
+
+.sobre-text h1{
+    font-family: 'Kanit', sans-serif;
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+.sobre-text li{
+    text-decoration: underline rgb(0, 68, 255);
+    font-size: 18px;
+}

@@ -1,4 +1,35 @@
 {% extends "base.html" %}
+{% load static %}
+{% block css %}{% static 'css/home.css' %}{% endblock %}
 {% block conteudo %}
-<h1>Página inicial</h1>
+<header>
+    <div class="header-content">
+        <a href="{% url 'home' %}">UNICAD</a>
+        <img src="{% static 'imgs/logo.png' %}">
+    </div>
+</header>
+<main>
+    <div class="introducao">
+        <h1>UNICAD - Unidade de Cadastramento</h1>
+    </div>
+    <div class="sobre">
+        <div class="sobre-text">
+            <h1>SOBRE:</h1>
+            <ul>
+                <li>PLATAFORMA DE CADASTRO E CENSO DE
+                    PESSOAS COM DEFICIÊNCIA</li>
+                <li>MAPEAMENTO DETALHADO DAS
+                    NECESSIDADES POR REGIÃO</li>
+                <li>FACILIDADE DE ACESSO E CONSULTA ÀS
+                    INFORMAÇÕES</li>
+                <li>SUPORTE NA TOMADA DE DECISÕES PARA
+                    MELHORIAS NA QUALIDADE DE VIDA DAS
+                    PESSOAS COM DEFICIÊNCIA</li>
+            </ul>
+        </div>
+        <a href="https://plataforma.gpinovacao.senai.br/plataforma/ideia/236894" target="_blank">
+            <img src="{% static 'imgs/logo.png' %}" class="logo-main">
+        </a>
+    </div>
+</main>
 {% endblock %}

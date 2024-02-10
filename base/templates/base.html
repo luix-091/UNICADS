@@ -4,11 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{% static 'logo.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'imgs/logo.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% block css %}{% endblock %}">
     <title>{% block titulo %}UNICAD{% endblock %}</title>
 </head>
 <body>
     {% block conteudo %}
     {% endblock %}
+    <footer>
+        <p>© 2024 UNICAD. Todos os direitos reservados.</p>
+    </footer>
 </body>
+<style>
+    body {
+    margin: 0;
+    padding: 0;
+    min-height: 900px;
+    min-width: fit-content;
+}
+    footer {
+    background-color: #2e2a2d;
+    color: #fff;
+    text-align: center;
+    padding: 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+</style>
 </html>
