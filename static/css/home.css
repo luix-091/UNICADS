@@ -20,6 +20,27 @@ body{
     height: 100px;
 }
 
+.header-content button {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    width: 120px;
+    padding: 10px 20px;
+    margin-left: 1400px;
+    background-color: #ffcfcf;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header-content button:hover {
+    background-color: #ff9999;
+}
+
+.header-content button:focus {
+    outline: none;
+}
+
 .header-content a{
     padding-left: 5px;
     padding-right: 5px;
@@ -40,6 +61,8 @@ body{
     margin-right: 10px;
     height: 100px;
 }
+
+
 
 main{
     margin: 0;
@@ -63,13 +86,13 @@ main{
 .sobre{
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
 }
 
 .sobre img{
     height: 300px;
-    margin-left: 500px;
+    margin-right: 100px;
     border-radius: 500px;
 }
 
@@ -85,6 +108,7 @@ main{
     padding: 20px;
     max-width: 400px;
     min-height: 300px;
+    margin-left: 100px;
     border-radius: 50px;
     font-size: 10px;
     font-family: 'Quicksand', sans-serif;
@@ -102,4 +126,34 @@ main{
 .sobre-text li{
     text-decoration: underline rgb(0, 68, 255);
     font-size: 18px;
+}
+
+.pessoas button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 48px;
+    width: 300px;
+    height: 200px;
+    padding: 10px 20px;
+    background-color: #a8c4ff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+}
+
+.pessoas button:hover{
+    background-color: #7cb5ff;
+}
+
+.pessoas button:focus{
+    outline: none;
+}
+
+.pessoas i{
+    margin-top: 25px;
 }

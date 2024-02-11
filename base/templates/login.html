@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}{% static 'css/login.css' %}{% endblock %}
+{% block conteudo %}
+<main>
+    <div class="login-box">
+        <h2>Entrar</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="textbox">
+                <input type="text" placeholder="Usuário" name="user" required autocomplete="off">
+            </div>
+            <div class="textbox">
+                <input type="password" placeholder="Senha" name="senha" required autocomplete="off">
+            </div>
+            <button class="btn" type="submit">Confirmar</button>
+            {% if erro_login %}
+            <div class="error-message">{{ erro_login }}</div>
+            {% endif %}
+        </form>
+    </div>
+</main>
+{% endblock %}

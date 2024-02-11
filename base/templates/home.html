@@ -2,12 +2,7 @@
 {% load static %}
 {% block css %}{% static 'css/home.css' %}{% endblock %}
 {% block conteudo %}
-<header>
-    <div class="header-content">
-        <a href="{% url 'home' %}">UNICAD</a>
-        <img src="{% static 'imgs/logo.png' %}">
-    </div>
-</header>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <main>
     <div class="introducao">
         <h1>UNICAD - Unidade de Cadastramento</h1>
@@ -27,9 +22,17 @@
                     PESSOAS COM DEFICIÊNCIA</li>
             </ul>
         </div>
+        <div class="botoes">
+            <div class="pessoas">
+                <button onclick="location.href='{% url 'pessoas' %}'">Pessoas
+                    <i class="fas fa-user"></i>
+                </button>
+            </div>
+        </div>
         <a href="https://plataforma.gpinovacao.senai.br/plataforma/ideia/236894" target="_blank">
             <img src="{% static 'imgs/logo.png' %}" class="logo-main">
         </a>
     </div>
+    
 </main>
 {% endblock %}

@@ -9,6 +9,15 @@
     <title>{% block titulo %}UNICAD{% endblock %}</title>
 </head>
 <body>
+    <header>
+        <div class="header-content">
+            <a href="{% url 'home' %}">UNICAD</a>
+            {% if user.is_authenticated %}
+            <button type="submit" class="logout" onclick="location.href='{% url 'logout' %}'">Sair</button>
+            {% endif %}
+            <img src="{% static 'imgs/logo.png' %}">
+        </div>
+    </header>
     {% block conteudo %}
     {% endblock %}
     <footer>
@@ -16,11 +25,14 @@
     </footer>
 </body>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
     body {
     margin: 0;
     padding: 0;
     min-height: 900px;
     min-width: fit-content;
+    background-color: rgb(215, 236, 255);
 }
     footer {
     background-color: #2e2a2d;
@@ -31,5 +43,61 @@
     bottom: 0;
     width: 100%;
 }
+header {
+    display: flex;
+    width: 100%;
+    background: linear-gradient(to left, #36519a 10%, #7caeff 60%, #afdfff);
+    color: #fff;
+}
+.header-content{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.header-content a{
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 56px;
+    font-family: 'Kanit', sans-serif;
+    text-decoration: none;
+    color: #36519a;
+    margin-left: 30px;
+    border-radius: 5px;
+}
+
+.header-content a:hover{
+    transition: 0.5s all;
+    opacity: 0.7;
+}
+
+.header-content img{
+    margin-right: 10px;
+    height: 100px;
+}
+
+.header-content button {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 22px;
+    width: 120px;
+    padding: 10px 20px;
+    margin-left: 1400px;
+    background-color: #ffcfcf;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header-content button:hover {
+    background-color: #ff9999;
+}
+
+.header-content button:focus {
+    outline: none;
+}
+
 </style>
 </html>
