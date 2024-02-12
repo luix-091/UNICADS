@@ -20,6 +20,7 @@ main {
 .edit-form {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .dados{
@@ -30,6 +31,7 @@ main {
 .endereco{
     margin-right: 60px;
 }
+
 
 .form-group {
     display: flex;

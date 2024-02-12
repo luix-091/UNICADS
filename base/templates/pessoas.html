@@ -4,8 +4,21 @@
 {% block conteudo %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <main>
-    <div class="cadastrar">
-        <button class="cadastro" type="submit" onclick=""><i class="fas fa-plus"></i>Cadastrar Nova Pessoa</button>
+    <div class="cima">
+        <div class="cadastrar">
+            <form action="{% url 'cadastro' %}">
+                <button class="cadastro" type="submit"><i class="fas fa-plus"></i>Cadastrar Nova Pessoa</button>
+            </form>
+        </div>
+        <form method="get" class="caixa-de-pesquisa">
+            <div class="caixa">
+                <input type="text" name="pesquisa" id="id_pesquisa" autocomplete="off" placeholder="Caixa de Pesquisa">
+            </div>
+            
+            <div class="botao">
+                    <button type="submit" class="btn">Pesquisar</button>
+            </div>
+        </form>
     </div>
     <div class="conteudo">
         {% for pessoa in pessoas %}
@@ -13,7 +26,7 @@
             <h1 class="nome">{{ pessoa.nome }}</h1>
             <ul>
                 <li>CPF: {{ pessoa.cpf }}</li>
-                <li>NASC: {{ pessoa.data_nasc }}</li>
+                <li>NASC: {{ pessoa.data_nasc|date:"d/m/Y" }}</li>
                 <li>GÊNERO: {{ pessoa.genero }}</li>
                 <br>
                 <li>LOGRADOURO: {{ pessoa.enderecos.logradouro }}</li>

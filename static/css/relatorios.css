@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Nunito&family=Poppins&display=swap');
+
+.container {
+    margin: 10px;
+    max-width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Nunito';
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.total {
+    word-wrap: break-word;
+    font-family: 'Lato';
+    font-size: 46px;
+    color: #007bff;
+    text-align: center;
+}

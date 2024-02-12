@@ -7,6 +7,13 @@ main{
     align-items: center;
 }
 
+.cima{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .cadastrar{
     margin-top: 10px;
     margin-left: 25px;
@@ -15,7 +22,7 @@ main{
 
 .cadastro{
     width: 400px;
-    height: 100px;
+    height: 70px;
     font-size: 32px;
     font-family: 'Lato';
     background-color: rgb(117, 161, 255);
@@ -32,6 +39,52 @@ main{
 
 .cadastro i{
     margin-right: 10px;
+}
+
+.caixa-de-pesquisa{
+    width: fit-content;
+    height: 70px;
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.caixa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.caixa input[type="text"] {
+    text-align: center;
+    height: 30px;
+    width: 400px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+}
+
+.botao button {
+    height: 50px;
+    margin-left: 10px;
+    padding: 0 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.botao button:hover {
+    background-color: #0056b3;
 }
 
 .conteudo{

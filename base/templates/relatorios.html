@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}{% static 'css/relatorios.css' %}{% endblock %}
+{% block conteudo %}
+<div class="container">
+    <h1>Pessoas Cadastradas</h1>
+    <div class="total">{{ total_pessoas }}</div>
+</div>
+{% endblock %}

@@ -128,7 +128,14 @@ main{
     font-size: 18px;
 }
 
-.pessoas button{
+.botoes{
+    width: 700px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pessoas button,
+.relatorios button{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -146,14 +153,17 @@ main{
     transition: background-color 0.3s ease;
 }
 
-.pessoas button:hover{
+.pessoas button:hover,
+.relatorios button:hover{
     background-color: #7cb5ff;
 }
 
-.pessoas button:focus{
+.pessoas button:focus,
+.relatorios button:focus{
     outline: none;
 }
 
-.pessoas i{
+.pessoas i,
+.relatorios i{
     margin-top: 25px;
 }
