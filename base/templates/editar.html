@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}{% static 'css/editar.css' %}{% endblock %}
+{% block conteudo %}
+<main>
+    <div class="box">
+        <h1 class="text">EDITAR</h1>
+        <form method="post" class="edit-form">
+            {% csrf_token %}
+            <div class="pessoa">
+                <div class="form-group">
+                    <label for="id_nome">NOME:</label>
+                    <input type="text" name="nome" id="id_nome" autocomplete="off" value="{{ form_pessoa.instance.nome }}">
+                </div>
+    
+                <div class="form-group">
+                    <label for="id_cpf">CPF:</label>
+                    <input type="text" name="cpf" id="id_cpf" autocomplete="off" value="{{ form_pessoa.instance.cpf }}">
+                </div>
+    
+                <div class="form-group">
+                    <label for="id_nasc">NASC:</label>
+                    <input type="date" name="data_nasc" id="id_nasc" autocomplete="off" value="{{ form_pessoa.instance.data_nasc|date:'Y-m-d' }}">
+                </div>
+    
+                <div class="form-group">
+                    <label for="id_genero">GÊNERO:</label>
+                    <input type="text" name="genero" id="id_genero" autocomplete="off" value="{{ form_pessoa.instance.genero }}">
+                </div>
+    
+                <div class="form-group">
+                    <label for="id_deficiencia">DEFICIÊNCIA:</label>
+                    <input type="text" name="deficiencia" id="id_deficiencia" autocomplete="off" value="{{ form_pessoa.instance.deficiencia }}">
+                </div>
+    
+                <div class="form-group">
+                    <label for="id_necessidades">NECESSIDADES:</label>
+                    <input type="text" name="necessidades" id="id_necessidades" autocomplete="off" value="{{ form_pessoa.instance.necessidades }}">
+                </div>
+            </div>
+            <div class="endereco">
+                <div class="form-group">
+                    <label for="id_logradouro">LOGRADOURO:</label>
+                    <input type="text" name="logradouro" id="id_logradouro" autocomplete="off" value="{{ form_endereco.instance.logradouro }}">
+                </div>
+    
+                <div class="form-group">
+                    <label for="id_bairro">BAIRRO:</label>
+                    <input type="text" name="bairro" id="id_bairro" autocomplete="off" value="{{ form_endereco.instance.bairro }}">
+                </div>
+    
+                <div class="form-group">
+                    <label for="id_regiao">REGIÃO:</label>
+                    <input type="text" name="regiao" id="id_regiao" autocomplete="off" value="{{ form_endereco.instance.regiao }}">
+                </div>
+            </div>
+            <div class="botao">
+                <button type="submit" class="btn">Confirmar</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+{% endblock %}

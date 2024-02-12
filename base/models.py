@@ -12,6 +12,6 @@ class Pessoa(models.Model):
     cpf = models.CharField(max_length=20)
     data_nasc = models.DateField()
     genero = models.CharField(max_length=100)
-    enderecos = models.ManyToManyField(Endereco)
+    enderecos = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True, default=None)
     deficiencia = models.CharField(max_length=300)
     necessidades = models.CharField(max_length=300)

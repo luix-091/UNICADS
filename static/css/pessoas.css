@@ -1,0 +1,118 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lato&family=Nunito&family=Poppins&display=swap');
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cadastrar{
+    margin-top: 10px;
+    margin-left: 25px;
+    align-self: flex-start;
+}
+
+.cadastro{
+    width: 400px;
+    height: 100px;
+    font-size: 32px;
+    font-family: 'Lato';
+    background-color: rgb(117, 161, 255);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.cadastro:hover {
+    background: #0056b3;
+}
+
+.cadastro i{
+    margin-right: 10px;
+}
+
+.conteudo{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    min-height: 600px;
+    width: 98%;
+    background-color: #ffffff;
+    border-radius: 15px;
+}
+
+.pessoa{
+    margin: 20px;
+    padding: 15px;
+    max-width: 400px;
+    height: fit-content;
+    background-color: #e3efff;
+    border: 5px solid rgb(0, 89, 255);
+}
+
+.pessoa h1{
+    word-wrap: break-word;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    text-decoration: #0056b3 underline;
+    font-family: 'Nunito';
+}
+
+.pessoa li{
+    margin-left: -20px;
+    font-size: 22px;
+    font-family: 'Poppins';
+    color: #0056b3;
+}
+
+.deficiencia,
+.necessidades{
+    word-wrap: break-word;
+    margin-left: -2px;
+    margin-bottom: -5px;
+    font-size: 22px;
+    font-weight: bold;
+    text-justify: auto;
+    font-family: 'Poppins';
+    color: rgb(9, 31, 151);
+}
+
+.botoes{
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+}
+
+.editar,
+.apagar{
+    margin-top: 20px;
+    width: 120px;
+    height: 50px;
+    font-family: 'Lato';
+    font-size: 20px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.editar{
+    background-color: rgb(103, 164, 167);
+}
+
+.apagar{
+    background-color: rgb(155, 60, 60);
+}
+
+.editar:hover{
+    background-color: rgb(73, 197, 187);
+}
+
+.apagar:hover{
+    background-color: rgb(97, 17, 17);
+}

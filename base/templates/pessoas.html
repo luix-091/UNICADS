@@ -1,6 +1,41 @@
 {% extends "base.html" %}
 {% load static %}
-{% block css %}{% static 'css/cadastrar-pessoa.css' %}{% endblock %}
+{% block css %}{% static 'css/pessoas.css' %}{% endblock %}
 {% block conteudo %}
-<p>Area de Pessoas</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<main>
+    <div class="cadastrar">
+        <button class="cadastro" type="submit" onclick=""><i class="fas fa-plus"></i>Cadastrar Nova Pessoa</button>
+    </div>
+    <div class="conteudo">
+        {% for pessoa in pessoas %}
+        <div class="pessoa">
+            <h1 class="nome">{{ pessoa.nome }}</h1>
+            <ul>
+                <li>CPF: {{ pessoa.cpf }}</li>
+                <li>NASC: {{ pessoa.data_nasc }}</li>
+                <li>GÊNERO: {{ pessoa.genero }}</li>
+                <br>
+                <li>LOGRADOURO: {{ pessoa.enderecos.logradouro }}</li>
+                <li>BAIRRO: {{ pessoa.enderecos.bairro }}</li>
+                <li>REGIÃO: {{ pessoa.enderecos.regiao }}</li>
+            </ul>       
+            <p class="deficiencia">DEFICIÊNCIA:
+                <br>{{ pessoa.deficiencia }}</p>
+            <p class="necessidades">NECESSIDADES:
+                <br>{{ pessoa.necessidades }}</p>
+            <div class="botoes">
+                <form method="POST" action="{% url 'editar' pessoa.id %}">
+                    {% csrf_token %}
+                    <button class="editar">Editar</button>
+                </form>
+                <form method="POST" action="{% url 'apagar' pessoa.id %}" >
+                    {% csrf_token %}
+                    <button type="submit" onclick="return confirm('Tem certeza que deseja apagar esta pessoa?')" class="apagar">Apagar</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
 {% endblock %}
