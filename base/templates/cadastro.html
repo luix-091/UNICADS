@@ -9,34 +9,52 @@
             {% csrf_token %}
             <div class="dados">
                 <div class="pessoa">
-                    <div class="form-group">
-                        <label for="id_nome">NOME:</label>
-                        <input type="text" name="nome" id="id_nome" autocomplete="off" >
+                    <div class="esquerda">
+                        <div class="form-group">
+                            <label for="id_nome">NOME:</label>
+                            <input type="text" name="nome" id="id_nome" autocomplete="off" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="id_cpf">CPF:</label>
+                            <input type="text" name="cpf" id="id_cpf" autocomplete="off" >
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="id_nasc">NASC:</label>
+                            <input type="date" name="data_nasc" id="id_nasc" autocomplete="off">
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="id_genero">GÊNERO:</label>
+                            <select name="genero" id="id_genero">
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                            </select>
+                        </div>
                     </div>
-        
-                    <div class="form-group">
-                        <label for="id_cpf">CPF:</label>
-                        <input type="text" name="cpf" id="id_cpf" autocomplete="off" >
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="id_nasc">NASC:</label>
-                        <input type="date" name="data_nasc" id="id_nasc" autocomplete="off">
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="id_genero">GÊNERO:</label>
-                        <input type="text" name="genero" id="id_genero" autocomplete="off">
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="id_deficiencia">DEFICIÊNCIA:</label>
-                        <input type="text" name="deficiencia" id="id_deficiencia" autocomplete="off">
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="id_necessidades">NECESSIDADES:</label>
-                        <input type="text" name="necessidades" id="id_necessidades" autocomplete="off">
+                    <div class="direita">
+                        <div class="form-group">
+                            <label for="id_deficiencia">DEFICIÊNCIA:</label>
+                            <select name="deficiencia" id="id_deficiencia" required>
+                                <option value="" disabled selected>-- Selecione uma opção --</option>
+                                <option value="Física">Física</option>
+                                <option value="Auditiva">Auditiva</option>
+                                <option value="Visual">Visual</option>
+                                <option value="Intelectual">Intelectual</option>
+                                <option value="Psicossocial">Psicossocial</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_detalhes">DETALHES:</label>
+                            <input type="text" name="detalhes" id="id_detalhes" autocomplete="off">
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="id_necessidades">NECESSIDADES:</label>
+                            <input type="text" name="necessidades" id="id_necessidades" autocomplete="off">
+                        </div>
                     </div>
                 </div>
                 <div class="endereco">
@@ -47,12 +65,12 @@
         
                     <div class="form-group">
                         <label for="id_bairro">BAIRRO:</label>
-                        <input type="text" name="bairro" id="id_bairro">
+                        <input type="text" name="bairro" id="id_bairro" autocomplete="off">
                     </div>
         
                     <div class="form-group">
                         <label for="id_regiao">REGIÃO:</label>
-                        <input type="text" name="regiao" id="id_regiao">
+                        <input type="text" name="regiao" id="id_regiao" autocomplete="off">
                     </div>
                 </div>
             </div>

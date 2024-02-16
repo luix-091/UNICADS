@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Nunito&family=Poppins&display=swap');
 
-main {
-    width: 550px;
-    margin: 50px auto;
+
+main{
+    width: 100%;
+    min-height: 800px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box{
+    width: 850px;
     padding: 20px;
     background-color: #f5f5f5;
     border-radius: 8px;
@@ -14,21 +22,35 @@ main {
     font-family: 'Nunito';
     font-size: 42px;
     margin-top: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
 }
 
 .edit-form {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .dados{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+}
+
+.pessoa{
+    display: flex;
+    width: 180px;
+}
+
+.pessoa .direita{
+    margin-left: 100px;
+}
+
+.pessoa .esquerda{
+    margin-left: -50px;
 }
 
 .endereco{
-    margin-right: 60px;
+    margin-left: 110px;
 }
 
 .form-group {
@@ -41,6 +63,27 @@ main {
     font-weight: bold;
     font-family: 'Lato';
     margin-bottom: 7px;
+}
+
+.form-group select {
+    font-family: 'Lato';
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 130%;
+}
+
+.direita select{
+    margin-top: 5px;
+    font-size: 16px;
+    width: 190%;
+}
+
+#id_necessidades,
+#id_detalhes{
+    width: 170%;
 }
 
 .botao {

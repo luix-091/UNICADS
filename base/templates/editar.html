@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block css %}{% static 'css/editar.css' %}{% endblock %}
+{% block css %}{% static 'css/cadastro.css' %}{% endblock %}
 {% block conteudo %}
 <main>
     <div class="box">
@@ -9,34 +9,52 @@
             {% csrf_token %}
             <div class="dados">
                 <div class="pessoa">
-                    <div class="form-group">
-                        <label for="id_nome">NOME:</label>
-                        <input type="text" name="nome" id="id_nome" autocomplete="off" value="{{ form_pessoa.instance.nome }}">
+                    <div class="esquerda">
+                        <div class="form-group">
+                            <label for="id_nome">NOME:</label>
+                            <input type="text" name="nome" id="id_nome" autocomplete="off" value="{{ form_pessoa.instance.nome }}" required>
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="id_cpf">CPF:</label>
+                            <input type="text" name="cpf" id="id_cpf" autocomplete="off" value="{{ form_pessoa.instance.cpf }}">
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="id_nasc">NASC:</label>
+                            <input type="date" name="data_nasc" id="id_nasc" autocomplete="off" value="{{ form_pessoa.instance.data_nasc|date:'Y-m-d' }}">
+                        </div>
+            
+                        <div class="form-group">
+                            <label for="id_genero">GÊNERO:</label>
+                            <select name="genero" id="id_genero">
+                                <option value="M">Masculino</option>
+                                <option value="F">Feminino</option>
+                            </select>
+                        </div>
                     </div>
-        
-                    <div class="form-group">
-                        <label for="id_cpf">CPF:</label>
-                        <input type="text" name="cpf" id="id_cpf" autocomplete="off" value="{{ form_pessoa.instance.cpf }}">
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="id_nasc">NASC:</label>
-                        <input type="date" name="data_nasc" id="id_nasc" autocomplete="off" value="{{ form_pessoa.instance.data_nasc|date:'Y-m-d' }}">
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="id_genero">GÊNERO:</label>
-                        <input type="text" name="genero" id="id_genero" autocomplete="off" value="{{ form_pessoa.instance.genero }}">
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="id_deficiencia">DEFICIÊNCIA:</label>
-                        <input type="text" name="deficiencia" id="id_deficiencia" autocomplete="off" value="{{ form_pessoa.instance.deficiencia }}">
-                    </div>
-        
-                    <div class="form-group">
-                        <label for="id_necessidades">NECESSIDADES:</label>
-                        <input type="text" name="necessidades" id="id_necessidades" autocomplete="off" value="{{ form_pessoa.instance.necessidades }}">
+                    <div class="direita">
+                        <div class="form-group">
+                            <label for="id_deficiencia">DEFICIÊNCIA:</label>
+                            <select name="deficiencia" id="id_deficiencia" required>
+                                <option value="" disabled>-- Selecione uma opção --</option>
+                                <option value="Física" {% if form_pessoa.instance.deficiencia == 'Física' %}selected{% endif %}>Física</option>
+                                <option value="Auditiva" {% if form_pessoa.instance.deficiencia == 'Auditiva' %}selected{% endif %}>Auditiva</option>
+                                <option value="Visual" {% if form_pessoa.instance.deficiencia == 'Visual' %}selected{% endif %}>Visual</option>
+                                <option value="Intelectual" {% if form_pessoa.instance.deficiencia == 'Intelectual' %}selected{% endif %}>Intelectual</option>
+                                <option value="Psicossocial" {% if form_pessoa.instance.deficiencia == 'Psicossocial' %}selected{% endif %}>Psicossocial</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id_detalhes">DETALHES:</label>
+                            <input type="text" name="detalhes" id="id_detalhes" autocomplete="off" value="{{ form.instance.detalhes }}">
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="id_necessidades">NECESSIDADES:</label>
+                            <input type="text" name="necessidades" id="id_necessidades" autocomplete="off" value="{{ form_pessoa.instance.necessidades }}">
+                        </div>
                     </div>
                 </div>
                 <div class="endereco">

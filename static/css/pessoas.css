@@ -89,7 +89,7 @@ main{
 
 .conteudo{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-top: 10px;
     min-height: 600px;
     width: 98%;
@@ -98,10 +98,14 @@ main{
 }
 
 .pessoa{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     margin: 20px;
     padding: 15px;
-    max-width: 400px;
-    height: fit-content;
+    min-width: 300px;
+    max-width: 500px;
+    min-height: 200px;
     background-color: #e3efff;
     border: 5px solid rgb(0, 89, 255);
 }
@@ -109,7 +113,7 @@ main{
 .pessoa h1{
     word-wrap: break-word;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     margin-top: 0px;
     text-decoration: #0056b3 underline;
     font-family: 'Nunito';
@@ -117,17 +121,23 @@ main{
 
 .pessoa li{
     margin-left: -20px;
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'Poppins';
     color: #0056b3;
 }
 
+.pessoa ul{
+    margin-bottom: 0px;
+}
+
 .deficiencia,
-.necessidades{
+.necessidades,
+.detalhes{
     word-wrap: break-word;
+    margin-top: 20px;
     margin-left: -2px;
     margin-bottom: -5px;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: bold;
     text-justify: auto;
     font-family: 'Poppins';

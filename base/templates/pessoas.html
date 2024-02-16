@@ -27,16 +27,27 @@
             <ul>
                 <li>CPF: {{ pessoa.cpf }}</li>
                 <li>NASC: {{ pessoa.data_nasc|date:"d/m/Y" }}</li>
-                <li>GÊNERO: {{ pessoa.genero }}</li>
+                {% if pessoa.genero == 'M' %}
+                <li>GÊNERO: Masculino</li>
+                {% else %}
+                <li>GÊNERO: Feminino</li>
+                {% endif %}
                 <br>
                 <li>LOGRADOURO: {{ pessoa.enderecos.logradouro }}</li>
                 <li>BAIRRO: {{ pessoa.enderecos.bairro }}</li>
                 <li>REGIÃO: {{ pessoa.enderecos.regiao }}</li>
             </ul>       
-            <p class="deficiencia">DEFICIÊNCIA:
-                <br>{{ pessoa.deficiencia }}</p>
-            <p class="necessidades">NECESSIDADES:
-                <br>{{ pessoa.necessidades }}</p>
+            <p class="deficiencia">DEFICIÊNCIA: {{ pessoa.deficiencia }}</p>
+            {% if pessoa.detalhes %}
+            <p class="detalhes">DETALHES: {{ pessoa.detalhes }}</p>
+            {% else %}
+            <p class="detalhes">DETALHES: Não Informado</p>
+            {% endif %}
+            {% if pessoa.detalhes %}
+            <p class="necessidades">NECESSIDADES: {{ pessoa.necessidades }}</p>
+            {% else %}
+            <p class="necessidades">NECESSIDADES: Não Informada</p>
+            {% endif %}
             <div class="botoes">
                 <form method="POST" action="{% url 'editar' pessoa.id %}">
                     {% csrf_token %}
