@@ -40,9 +40,10 @@ def cad_pessoa(request):
             endereco = form_endereco.save()
             pessoa = form_pessoa.save(commit=False)
             pessoa.enderecos = endereco
-            pessoa.save()       
+            pessoa.save()
             return redirect('pessoas')
-    return render(request, 'cadastro.html')
+    bairros = [bairro[0] for bairro in Endereco.BAIRROS_CHOICES]
+    return render(request, 'cadastro.html', {'bairros': bairros})
 
 
 @login_required(login_url="login/")
@@ -62,15 +63,20 @@ def editar_pessoa(request, pessoa_id):
             form_pessoa.save()
             form_endereco.save()
             return redirect('pessoas')
+    
+    bairros = [bairro[0] for bairro in Endereco.BAIRROS_CHOICES]
     form_pessoa = PessoaForm(request.POST, instance=pessoa)
     form_endereco = EnderecoForm(request.POST, instance=pessoa.enderecos)
-    return render(request, 'editar.html', {'form_pessoa': form_pessoa, 'form_endereco': form_endereco, 'pessoa': pessoa})
+    return render(request, 'editar.html', {'form_pessoa': form_pessoa, 'form_endereco': form_endereco, 'pessoa': pessoa, 'bairros':bairros})
 
 @login_required(login_url='login/')
 def relatorios(request):
     pessoas = Pessoa.objects.all()
     total_pessoas = '{:,}'.format(Pessoa.objects.all().count()).replace(',', '.')
-    return render(request, 'relatorios.html', {'pessoas':pessoas, 'total_pessoas':total_pessoas})
+
+    bairros = [bairro[0] for bairro in Endereco.BAIRROS_CHOICES]
+
+    return render(request, 'relatorios.html', {'pessoas':pessoas, 'total_pessoas':total_pessoas, 'bairros':bairros})
 
 def logar(request):
     erro_login = None

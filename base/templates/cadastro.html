@@ -17,7 +17,7 @@
             
                         <div class="form-group">
                             <label for="id_cpf">CPF:</label>
-                            <input type="text" name="cpf" id="id_cpf" autocomplete="off" >
+                            <input type="text" name="cpf" id="id_cpf" autocomplete="off" maxlength="14">
                         </div>
             
                         <div class="form-group">
@@ -65,7 +65,12 @@
         
                     <div class="form-group">
                         <label for="id_bairro">BAIRRO:</label>
-                        <input type="text" name="bairro" id="id_bairro" autocomplete="off">
+                            <select name="bairro" id="id_bairro" required>
+                                <option value="" disabled selected>-- Selecione uma opção --</option>
+                                {% for bairro in bairros %}
+                                <option value="{{ bairro }}">{{ bairro }}</option>
+                                {% endfor %}
+                            </select>
                     </div>
         
                     <div class="form-group">
@@ -80,5 +85,17 @@
         </form>
     </div>
 </main>
-
+<script>
+    document.getElementById('id_cpf').addEventListener('input', function (e) {
+        var cpf = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
+        if (cpf.length > 3 && cpf.length < 7) {
+            cpf = cpf.replace(/^(\d{3})(\d{1,3})/, '$1.$2');
+        } else if (cpf.length >= 7 && cpf.length < 10) {
+            cpf = cpf.replace(/^(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+        } else if (cpf.length >= 10) {
+            cpf = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+        }
+        e.target.value = cpf;
+    });
+</script>
 {% endblock %}

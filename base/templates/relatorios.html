@@ -2,8 +2,53 @@
 {% load static %}
 {% block css %}{% static 'css/relatorios.css' %}{% endblock %}
 {% block conteudo %}
-<div class="container">
-    <h1>Pessoas Cadastradas</h1>
-    <div class="total">{{ total_pessoas }}</div>
-</div>
+<main>
+    <div class="cima">
+        <div class="container">
+            <h1>Pessoas Cadastradas</h1>
+            <div class="total">
+                {{ total_pessoas }}
+            </div>
+        </div>
+        <form method="get" class="caixa-de-pesquisa">
+            <div class="caixa">
+                <input type="text" name="pesquisa" id="id_pesquisa" autocomplete="off" placeholder="(Bairro, Região, Deficiência)">
+            </div>
+            
+            <div class="botao">
+                    <button type="submit" class="btn">Pesquisar</button>
+            </div>
+        </form>
+    </div>
+    <div class="conteudo">
+        <div class="esquerda">
+            <div class="apresentacao-esquerda">
+                <div class="text-bairros">
+                    Bairros
+                </div>
+                <button class="expand-icon" onclick="toggleCheckboxes()">Mostrar Opções</button>
+            </div>
+            <div class="checkboxes" style="display:none;">
+                {% for bairro in bairros %}
+                    <input type="checkbox" id="bairro_{{ forloop.counter }}" name="bairros" value="{{ bairro }}">
+                    <label for="bairro_{{ forloop.counter }}">{{ bairro }}</label><br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    function toggleCheckboxes() {
+        var buttonexpandicon = document.querySelector('.expand-icon')
+        var checkboxes = document.querySelector('.checkboxes');
+        if (checkboxes.style.display === 'none') {
+            checkboxes.style.display = 'block';
+            buttonexpandicon.textContent = 'Esconder Opções'
+        } else {
+            checkboxes.style.display = 'none';
+            buttonexpandicon.textContent = 'Mostrar Opções'
+        }
+    }
+</script>
+
 {% endblock %}

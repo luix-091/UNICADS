@@ -11,7 +11,7 @@
 <body>
     <header>
         <div class="header-content">
-            <a href="{% url 'home' %}">UNICAD</a>
+            <a href="{% url 'home' %}">UNICADS</a>
             {% if user.is_authenticated %}
             <button type="submit" class="logout" onclick="location.href='{% url 'logout' %}'">Sair</button>
             {% endif %}
@@ -21,7 +21,7 @@
     {% block conteudo %}
     {% endblock %}
     <footer>
-        <p>© 2024 UNICAD. Todos os direitos reservados.</p>
+        <p>© 2024 UNICADS. Todos os direitos reservados.</p>
     </footer>
 </body>
 <style>

@@ -28,12 +28,12 @@ main{
 .edit-form {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 
 .dados{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 .pessoa{
@@ -42,15 +42,13 @@ main{
 }
 
 .pessoa .direita{
+    margin-top: -3px;
     margin-left: 100px;
 }
 
-.pessoa .esquerda{
-    margin-left: -50px;
-}
-
 .endereco{
-    margin-left: 110px;
+    width: 300px;
+    margin-left: 350px;
 }
 
 .form-group {
@@ -79,6 +77,18 @@ main{
     margin-top: 5px;
     font-size: 16px;
     width: 190%;
+}
+
+select#id_bairro{
+    width: 107%;
+}
+
+input#id_logradouro{
+    width: 100%;
+}
+
+input#id_regiao{
+    width: 100%;
 }
 
 #id_necessidades,

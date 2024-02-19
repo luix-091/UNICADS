@@ -17,7 +17,7 @@
             
                         <div class="form-group">
                             <label for="id_cpf">CPF:</label>
-                            <input type="text" name="cpf" id="id_cpf" autocomplete="off" value="{{ form_pessoa.instance.cpf }}">
+                            <input type="text" name="cpf" id="id_cpf" autocomplete="off" maxlength="14" value="{{ form_pessoa.instance.cpf }}">
                         </div>
             
                         <div class="form-group">
@@ -28,8 +28,8 @@
                         <div class="form-group">
                             <label for="id_genero">GÊNERO:</label>
                             <select name="genero" id="id_genero">
-                                <option value="M">Masculino</option>
-                                <option value="F">Feminino</option>
+                                <option value="M"{% if form_pessoa.genero == 'M' %}selected{% endif %}>Masculino</option>
+                                <option value="F"{% if form_pessoa.genero == 'F' %}selected{% endif %}>Feminino</option>
                             </select>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                         
                         <div class="form-group">
                             <label for="id_detalhes">DETALHES:</label>
-                            <input type="text" name="detalhes" id="id_detalhes" autocomplete="off" value="{{ form.instance.detalhes }}">
+                            <input type="text" name="detalhes" id="id_detalhes" autocomplete="off" value="{{ form_pessoa.instance.detalhes }}">
                         </div>
     
                         <div class="form-group">
@@ -60,17 +60,22 @@
                 <div class="endereco">
                     <div class="form-group">
                         <label for="id_logradouro">LOGRADOURO:</label>
-                        <input type="text" name="logradouro" id="id_logradouro" autocomplete="off" value="{{ form_endereco.instance.logradouro }}">
+                        <input type="text" name="logradouro" id="id_logradouro" autocomplete="off" value="{{ form_pessoa.instance.enderecos.logradouro }}">
                     </div>
         
                     <div class="form-group">
                         <label for="id_bairro">BAIRRO:</label>
-                        <input type="text" name="bairro" id="id_bairro" autocomplete="off" value="{{ form_endereco.instance.bairro }}">
+                            <select name="bairro" id="id_bairro" required>
+                                <option value="" disabled>-- Selecione uma opção --</option>
+                                {% for bairro in bairros %}
+                                <option value="{{ bairro }}" {% if form_pessoa.instance.enderecos.bairro == bairro %}selected{% endif %}>{{ bairro }}</option>
+                                {% endfor %}
+                            </select>
                     </div>
         
                     <div class="form-group">
                         <label for="id_regiao">REGIÃO:</label>
-                        <input type="text" name="regiao" id="id_regiao" autocomplete="off" value="{{ form_endereco.instance.regiao }}">
+                        <input type="text" name="regiao" id="id_regiao" autocomplete="off" value="{{ form_pessoa.instance.enderecos.regiao }}">
                     </div>
                 </div>
             </div>
@@ -80,5 +85,17 @@
         </form>
     </div>
 </main>
-
+<script>
+    document.getElementById('id_cpf').addEventListener('input', function (e) {
+        var cpf = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
+        if (cpf.length > 3 && cpf.length < 7) {
+            cpf = cpf.replace(/^(\d{3})(\d{1,3})/, '$1.$2');
+        } else if (cpf.length >= 7 && cpf.length < 10) {
+            cpf = cpf.replace(/^(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+        } else if (cpf.length >= 10) {
+            cpf = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+        }
+        e.target.value = cpf;
+    });
+</script>
 {% endblock %}
