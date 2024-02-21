@@ -71,12 +71,21 @@ def editar_pessoa(request, pessoa_id):
 
 @login_required(login_url='login/')
 def relatorios(request):
+
     pessoas = Pessoa.objects.all()
     total_pessoas = '{:,}'.format(Pessoa.objects.all().count()).replace(',', '.')
 
     bairros = [bairro[0] for bairro in Endereco.BAIRROS_CHOICES]
 
-    return render(request, 'relatorios.html', {'pessoas':pessoas, 'total_pessoas':total_pessoas, 'bairros':bairros})
+    selected_bairros = request.GET.getlist('bairros')
+
+
+    if not selected_bairros:
+        selected_bairros = ''
+    
+    return render(request, 'relatorios.html', {'pessoas':pessoas, 'total_pessoas':total_pessoas, 'bairros':bairros, 'selected_bairros':selected_bairros})
+
+
 
 def logar(request):
     erro_login = None

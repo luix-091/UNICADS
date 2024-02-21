@@ -3,52 +3,64 @@
 {% block css %}{% static 'css/relatorios.css' %}{% endblock %}
 {% block conteudo %}
 <main>
-    <div class="cima">
-        <div class="container">
+    <div class="esquerda">
+        <div class="pessoas_cadastradas">
             <h1>Pessoas Cadastradas</h1>
             <div class="total">
                 {{ total_pessoas }}
             </div>
         </div>
-        <form method="get" class="caixa-de-pesquisa">
-            <div class="caixa">
-                <input type="text" name="pesquisa" id="id_pesquisa" autocomplete="off" placeholder="(Bairro, Região, Deficiência)">
-            </div>
-            
-            <div class="botao">
-                    <button type="submit" class="btn">Pesquisar</button>
-            </div>
-        </form>
-    </div>
-    <div class="conteudo">
-        <div class="esquerda">
-            <div class="apresentacao-esquerda">
+        <div class="baixo">
+            <div class="apresentacao-baixo">
                 <div class="text-bairros">
                     Bairros
                 </div>
                 <button class="expand-icon" onclick="toggleCheckboxes()">Mostrar Opções</button>
             </div>
-            <div class="checkboxes" style="display:none;">
-                {% for bairro in bairros %}
-                    <input type="checkbox" id="bairro_{{ forloop.counter }}" name="bairros" value="{{ bairro }}">
-                    <label for="bairro_{{ forloop.counter }}">{{ bairro }}</label><br>
+            <form method="get">
+                {% csrf_token %}
+                <div class="checkboxes" style="display:none;">
+                    {% for bairro in bairros %}
+                        <input type="checkbox" id="bairro_{{ forloop.counter }}" name="bairros" value="{{ bairro }}">
+                        <label for="bairro_{{ forloop.counter }}">{{ bairro }}</label><br>
+                    {% endfor %}
+                </div>
+                <button class="save-button">Salvar</button>
+            </form>
+        </div>
+    </div>
+    <div class="conteudo">
+        <div class="grafico">
+            {% if selected_bairros %}
+                {% for selected_bairro in selected_bairros %}
+                {{ selected_bairro }}
                 {% endfor %}
-            </div>
+            {% else %}
+            <p>Escolha os Bairros Para Gerar o Gráfico</p>
+            {% endif %}
         </div>
     </div>
 </main>
 <script>
     function toggleCheckboxes() {
         var buttonexpandicon = document.querySelector('.expand-icon')
+        var box = document.querySelector('.esquerda')
         var checkboxes = document.querySelector('.checkboxes');
+        var tamanho_grafico = document.querySelector('.grafico');
+
         if (checkboxes.style.display === 'none') {
             checkboxes.style.display = 'block';
             buttonexpandicon.textContent = 'Esconder Opções'
+            box.style.height = '830px'
+            tamanho_grafico.style.height = '1000px'
         } else {
             checkboxes.style.display = 'none';
             buttonexpandicon.textContent = 'Mostrar Opções'
+            box.style.height = '100px'
+            tamanho_grafico.style.height = '570px'
         }
     }
+        
 </script>
 
 {% endblock %}

@@ -11,11 +11,15 @@
 <body>
     <header>
         <div class="header-content">
-            <a href="{% url 'home' %}">UNICADS</a>
-            {% if user.is_authenticated %}
+            <div class="header-esquerda">
+                <a href="{% url 'home' %}">UNICADS</a>
+            </div>
+            <div class="header-direita">
+                {% if user.is_authenticated %}
             <button type="submit" class="logout" onclick="location.href='{% url 'logout' %}'">Sair</button>
             {% endif %}
             <img src="{% static 'imgs/logo.png' %}">
+            </div>
         </div>
     </header>
     {% block conteudo %}
@@ -73,6 +77,11 @@ header {
     opacity: 0.7;
 }
 
+.header-direita{
+    display: flex;
+    height: 100px;
+}
+
 .header-content img{
     margin-right: 10px;
     height: 100px;
@@ -80,10 +89,9 @@ header {
 
 .header-content button {
     font-family: 'Quicksand', sans-serif;
+    margin: 20px;
+    min-width: 120px;
     font-size: 22px;
-    width: 120px;
-    padding: 10px 20px;
-    margin-left: 1400px;
     background-color: #ffcfcf;
     border: none;
     border-radius: 5px;
