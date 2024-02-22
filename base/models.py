@@ -60,10 +60,10 @@ class Pessoa(models.Model):
     cpf = models.CharField(max_length=20)
     data_nasc = models.DateField()
     genero = models.CharField(
-        max_length=1,
+        max_length=10,
         choices=[
-        ('M', 'Masculino'),
-        ('F', 'Feminino'),
+        ('Masculino', 'Masculino'),
+        ('Feminino', 'Feminino'),
     ],
         default='Não informado',
     )

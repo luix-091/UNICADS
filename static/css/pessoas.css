@@ -87,8 +87,11 @@ main{
     background-color: #0056b3;
 }
 
+
+
 .conteudo{
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     margin-top: 10px;
     min-height: 600px;
@@ -103,8 +106,8 @@ main{
     justify-content: space-evenly;
     margin: 20px;
     padding: 15px;
-    min-width: 300px;
-    max-width: 500px;
+    min-width: 385px;
+    max-width: 385px;
     min-height: 200px;
     background-color: #e3efff;
     border: 5px solid rgb(0, 89, 255);

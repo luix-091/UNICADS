@@ -2,6 +2,7 @@
 {% load static %}
 {% block css %}{% static 'css/relatorios.css' %}{% endblock %}
 {% block conteudo %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <main>
     <div class="esquerda">
         <div class="pessoas_cadastradas">
@@ -15,7 +16,12 @@
                 <div class="text-bairros">
                     Bairros
                 </div>
-                <button class="expand-icon" onclick="toggleCheckboxes()">Mostrar Opções</button>
+                <div class="botoes">
+                  <button class="todos" onclick="marcarTodos()">
+                    Marcar Todos
+                  </button>
+                  <button class="expand-icon" onclick="toggleCheckboxes()">Mostrar Opções</button>
+                </div>
             </div>
             <form method="get">
                 {% csrf_token %}
@@ -25,7 +31,7 @@
                         <label for="bairro_{{ forloop.counter }}">{{ bairro }}</label><br>
                     {% endfor %}
                 </div>
-                <button class="save-button">Salvar</button>
+                <button class="save-button">Filtrar</button>
             </form>
         </div>
     </div>
@@ -41,43 +47,107 @@
 </main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    const ctx = document.getElementById('grafico');
-  
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: {{ selected_bairros|safe }},
-        datasets: [{
-          label: 'Deficientes',
-          data: {{ deficiencia_por_bairro|safe }},
-          borderWidth: 1
-        }]
+const ctx = document.getElementById('grafico');
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: {{ selected_bairros|safe }},
+    datasets: [
+      {
+        label: 'Física',
+        data: {{ deficiencia_fisica_por_bairro|safe }},
+        backgroundColor: 'rgba(163, 75, 122, 0.7)',
+        borderColor: 'rgba(245, 59, 158, 1)',
+        borderWidth: 3
       },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
+      {
+        label: 'Visual',
+        data: {{ deficiencia_visual_por_bairro|safe }},
+        backgroundColor: 'rgba(60, 69, 163, 0.7)',
+        borderColor: 'rgba(20, 40, 255, 1)',
+        borderWidth: 3
+      },
+      {
+        label: 'Auditiva',
+        data: {{ deficiencia_auditiva_por_bairro|safe }},
+        backgroundColor: 'rgba(209, 200, 100, 0.7)',
+        borderColor: 'rgba(242, 225, 36, 1)',
+        borderWidth: 3
+      },
+      {
+        label: 'Intelectual',
+        data: {{ deficiencia_intelectual_por_bairro|safe }},
+        backgroundColor: 'rgba(87, 168, 82, 0.7)',
+        borderColor: 'rgba(52, 122, 48, 1)',
+        borderWidth: 3
+      },
+      {
+        label: 'Psicossocial',
+        data: {{ deficiencia_psicossocial_por_bairro|safe }},
+        backgroundColor: 'rgba(219, 83, 83, 0.7)',
+        borderColor: 'rgba(232, 46, 46, 1)',
+        borderWidth: 3
       }
-    });
-    function toggleCheckboxes() {
-        var buttonexpandicon = document.querySelector('.expand-icon')
-        var box = document.querySelector('.esquerda')
-        var checkboxes = document.querySelector('.checkboxes');
-        var conteudo = document.querySelector('.conteudo')
+    ]
+  },
+  options: {
+    scales: {
+      x: { stacked: true },
+      y: { stacked: true,
+          beginAtZero: true,
+          ticks: {
+          callback: function(value, index, values) {
+            return Number.isInteger(value) ? value : '';
+          }
+        } 
+      }
+    },
+    barPercentage: 0.7,
+  }
+});
 
-        if (checkboxes.style.display === 'none') {
-            checkboxes.style.display = 'block';
-            buttonexpandicon.textContent = 'Esconder Opções'
-            box.style.height = '830px'
-            conteudo.style.marginTop = '70px'
-        } else {
-            checkboxes.style.display = 'none';
-            buttonexpandicon.textContent = 'Mostrar Opções'
-            box.style.height = '100px'
-            conteudo.style.marginTop = '0px'
-        }
+function getSelectedBairros() {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    let selectedBairros = [];
+    checkboxes.forEach((checkbox) => {
+        selectedBairros.push(checkbox.value);
+    });
+    console.log(selectedBairros.join(','));
+    return selectedBairros.join(',');
+}
+
+function toggleCheckboxes() {
+  let selectedBairros = getSelectedBairros();
+  let buttonexpandicon = document.querySelector('.expand-icon')
+  let box = document.querySelector('.esquerda')
+  let checkboxes = document.querySelector('.checkboxes');
+  let selecione_bairros = document.querySelector('.selecione-bairros')
+  let grafico = document.querySelector('.grafico')
+
+  if (checkboxes.style.display === 'none') {
+      checkboxes.style.display = 'block';
+      buttonexpandicon.textContent = 'Esconder Opções'
+      box.style.height = '830px'
+      selecione_bairros.style.height = '1005px'
+  } else {
+      checkboxes.style.display = 'none';
+      buttonexpandicon.textContent = 'Mostrar Opções'
+      box.style.height = '100px'
+      selecione_bairros.style.height = '530px'
+  }
+}
+function marcarTodos(){
+  let checkboxes = document.querySelectorAll('input[type="checkbox"]')
+
+  let button = document.querySelector('.todos')
+
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked == true){
+      checkbox.checked = false
+    } else{
+      checkbox.checked = true;
     }
+});
+}
 </script>
 {% endblock %}

@@ -1,69 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
-header {
-    display: flex;
-    width: 100%;
-    background: linear-gradient(to left, #36519a 10%, #7caeff 60%, #afdfff);
-    color: #fff;
-}
-
-body{
-    background-color: rgb(215, 236, 255);
-}
-
-.header-content{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    height: 100px;
-}
-
-.header-content button {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 22px;
-    width: 120px;
-    padding: 10px 20px;
-    margin-left: 1400px;
-    background-color: #ffcfcf;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.header-content button:hover {
-    background-color: #ff9999;
-}
-
-.header-content button:focus {
-    outline: none;
-}
-
-.header-content a{
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 56px;
-    font-family: 'Kanit', sans-serif;
-    text-decoration: none;
-    color: #36519a;
-    margin-left: 30px;
-    border-radius: 5px;
-}
-
-.header-content a:hover{
-    transition: 0.5s all;
-    opacity: 0.7;
-}
-
-.header-content img{
-    margin-right: 10px;
-    height: 100px;
-}
-
-
-
 main{
     margin: 0;
     padding: 0;
@@ -107,7 +44,7 @@ main{
     flex-direction: column;
     background-color: #fff;
     padding: 20px;
-    max-width: 400px;
+    max-width: 450px;
     min-height: 300px;
     margin-left: 100px;
     border-radius: 50px;
@@ -129,42 +66,3 @@ main{
     font-size: 18px;
 }
 
-.botoes{
-    width: 700px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.pessoas button,
-.relatorios button{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Quicksand', sans-serif;
-    font-size: 48px;
-    width: 300px;
-    height: 200px;
-    padding: 10px 20px;
-    background-color: #a8c4ff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease;
-}
-
-.pessoas button:hover,
-.relatorios button:hover{
-    background-color: #7cb5ff;
-}
-
-.pessoas button:focus,
-.relatorios button:focus{
-    outline: none;
-}
-
-.pessoas i,
-.relatorios i{
-    margin-top: 25px;
-}

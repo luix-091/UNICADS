@@ -9,5 +9,5 @@ urlpatterns = [
     path('cad-pessoa/', views.cad_pessoa, name='cadastro'),
     path('apagar-pessoa/<int:pessoa_id>', views.apagar_pessoa, name='apagar'),
     path('editar-pessoa/<int:pessoa_id>', views.editar_pessoa, name='editar'),
-    path('relatorios/', views.relatorios, name='relatorios')
+    path('relatorio/', views.relatorio, name='relatorio')
 ]

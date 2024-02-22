@@ -14,6 +14,18 @@
             <div class="header-esquerda">
                 <a href="{% url 'home' %}">UNICADS</a>
             </div>
+            <div class="header-centro">
+                <div class="pessoas">
+                    <a href="{% url 'pessoas' %}">Pessoas
+                        <i class="fas fa-user"></i>
+                    </a>
+                </div>
+                <div class="relatorio">
+                    <a href="{% url 'relatorio' %}">Relatório
+                        <i class="fas fa-newspaper"></i>
+                    </a>
+                </div>
+            </div>
             <div class="header-direita">
                 {% if user.is_authenticated %}
             <button type="submit" class="logout" onclick="location.href='{% url 'logout' %}'">Sair</button>
@@ -31,14 +43,14 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-    body {
+body {
     margin: 0;
     padding: 0;
     min-height: 900px;
     min-width: fit-content;
     background-color: rgb(215, 236, 255);
 }
-    footer {
+footer {
     background-color: #2e2a2d;
     color: #fff;
     text-align: center;
@@ -61,7 +73,7 @@ header {
     height: 100px;
 }
 
-.header-content a{
+.header-esquerda a{
     padding-left: 5px;
     padding-right: 5px;
     font-size: 56px;
@@ -72,9 +84,51 @@ header {
     border-radius: 5px;
 }
 
-.header-content a:hover{
+.header-esquerda a:hover{
     transition: 0.5s all;
     opacity: 0.7;
+}
+
+.header-centro{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100px;
+    font-size: 10px;
+}
+
+.pessoas,
+.relatorio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pessoas a,
+.relatorio a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    padding-left: 13px;
+    padding-right: 13px;
+    font-size: 40px;
+    font-family: 'Quicksand';
+    text-decoration: none;
+    background-color: #afdfff;
+    border-radius: 5px;
+    color: #36519a;
+    transition: background-color 0.3s ease;
+}
+
+.pessoas i,
+.relatorio i{
+    margin-left: 10px;
+}
+
+.pessoas a:hover,
+.relatorio a:hover{
+    background-color: #42b3ff;
 }
 
 .header-direita{
@@ -105,6 +159,25 @@ header {
 
 .header-content button:focus {
     outline: none;
+}
+
+::-webkit-scrollbar {
+    width: 15px; /* largura da barra de rolagem */
+}
+
+/* Cor de fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+    background: rgb(215, 236, 255);
+}
+
+/* Cor do indicador da barra de rolagem */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Hover na barra de rolagem */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 </style>

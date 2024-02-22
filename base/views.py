@@ -1,12 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.db.models import Q, Count
+from django.db.models import Q
 from .models import Pessoa, Endereco
 from .forms import PessoaForm, EnderecoForm
 from datetime import datetime
-import plotly.express as px
 
 # Create your views here.
 @login_required(login_url="login/")
@@ -23,6 +21,7 @@ def pessoas(request):
             Q(nome__icontains=pesquisa) | 
             Q(cpf__icontains=pesquisa) | 
             Q(data_nasc__icontains=pesquisa) |
+            Q(genero__icontains=pesquisa) |
             Q(enderecos__logradouro__icontains=pesquisa) |
             Q(enderecos__regiao__icontains=pesquisa) |
             Q(enderecos__bairro__icontains=pesquisa)
@@ -71,7 +70,7 @@ def editar_pessoa(request, pessoa_id):
     return render(request, 'editar.html', {'form_pessoa': form_pessoa, 'form_endereco': form_endereco, 'pessoa': pessoa, 'bairros':bairros})
 
 @login_required(login_url='login/')
-def relatorios(request):
+def relatorio(request):
 
     pessoas = Pessoa.objects.all()
     total_pessoas = '{:,}'.format(Pessoa.objects.all().count()).replace(',', '.')
@@ -80,12 +79,37 @@ def relatorios(request):
 
     selected_bairros = request.GET.getlist('bairros')
     
-    deficiencia_por_bairro = []
+    deficiencia_fisica_por_bairro = []
+    deficiencia_visual_por_bairro = []
+    deficiencia_auditiva_por_bairro = []
+    deficiencia_intelectual_por_bairro = []
+    deficiencia_psicossocial_por_bairro = []
 
-    for bairro in selected_bairros:
-        deficiencia_por_bairro.append(Pessoa.objects.filter(Q(enderecos__bairro__icontains=bairro)).count())
+    if selected_bairros:
+        for bairro in selected_bairros:
+            
+            deficiencia_fisica_por_bairro.append(Pessoa.objects.filter(
+            Q(enderecos__bairro__icontains=bairro) &
+            Q(deficiencia__icontains='Física')
+            ).count())
+            deficiencia_visual_por_bairro.append(Pessoa.objects.filter(
+            Q(enderecos__bairro__icontains=bairro) &
+            Q(deficiencia__icontains='Visual')
+            ).count())
+            deficiencia_auditiva_por_bairro.append(Pessoa.objects.filter(
+            Q(enderecos__bairro__icontains=bairro) &
+            Q(deficiencia__icontains='Auditiva')
+            ).count())
+            deficiencia_intelectual_por_bairro.append(Pessoa.objects.filter(
+            Q(enderecos__bairro__icontains=bairro) &
+            Q(deficiencia__icontains='Intelectual')
+            ).count())
+            deficiencia_psicossocial_por_bairro.append(Pessoa.objects.filter(
+            Q(enderecos__bairro__icontains=bairro) &
+            Q(deficiencia__icontains='Psicossocial')
+            ).count())
 
-    return render(request, 'relatorios.html', {'pessoas': pessoas, 'total_pessoas': total_pessoas, 'bairros': bairros, 'selected_bairros': selected_bairros, 'deficiencia_por_bairro': deficiencia_por_bairro})
+    return render(request, 'relatorios.html', {'pessoas': pessoas, 'total_pessoas': total_pessoas, 'bairros': bairros, 'selected_bairros': selected_bairros, 'deficiencia_fisica_por_bairro': deficiencia_fisica_por_bairro,'deficiencia_auditiva_por_bairro': deficiencia_auditiva_por_bairro,'deficiencia_visual_por_bairro': deficiencia_visual_por_bairro,'deficiencia_intelectual_por_bairro': deficiencia_intelectual_por_bairro,'deficiencia_psicossocial_por_bairro': deficiencia_psicossocial_por_bairro})
 
 
 def logar(request):
