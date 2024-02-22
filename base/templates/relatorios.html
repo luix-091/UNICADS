@@ -30,37 +30,54 @@
         </div>
     </div>
     <div class="conteudo">
-        <div class="grafico">
-            {% if selected_bairros %}
-                {% for selected_bairro in selected_bairros %}
-                {{ selected_bairro }}
-                {% endfor %}
-            {% else %}
-            <p>Escolha os Bairros Para Gerar o Gráfico</p>
-            {% endif %}
+        {% if selected_bairros %}
+        <canvas class="grafico" id="grafico"></canvas>
+        {% else %}
+        <div class="selecione_bairros">
+            <p>Selecione Algum Bairro Para Gerar um Gráfico!</p>
         </div>
+        {% endif %}
     </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    const ctx = document.getElementById('grafico');
+  
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: {{ selected_bairros|safe }},
+        datasets: [{
+          label: 'Deficientes',
+          data: {{ deficiencia_por_bairro|safe }},
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
     function toggleCheckboxes() {
         var buttonexpandicon = document.querySelector('.expand-icon')
         var box = document.querySelector('.esquerda')
         var checkboxes = document.querySelector('.checkboxes');
-        var tamanho_grafico = document.querySelector('.grafico');
+        var conteudo = document.querySelector('.conteudo')
 
         if (checkboxes.style.display === 'none') {
             checkboxes.style.display = 'block';
             buttonexpandicon.textContent = 'Esconder Opções'
             box.style.height = '830px'
-            tamanho_grafico.style.height = '1000px'
+            conteudo.style.marginTop = '70px'
         } else {
             checkboxes.style.display = 'none';
             buttonexpandicon.textContent = 'Mostrar Opções'
             box.style.height = '100px'
-            tamanho_grafico.style.height = '570px'
+            conteudo.style.marginTop = '0px'
         }
     }
-        
 </script>
-
 {% endblock %}

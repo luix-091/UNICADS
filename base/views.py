@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.db.models import Q
+from django.db.models import Q, Count
 from .models import Pessoa, Endereco
 from .forms import PessoaForm, EnderecoForm
 from datetime import datetime
+import plotly.express as px
 
 # Create your views here.
 @login_required(login_url="login/")
@@ -78,13 +79,13 @@ def relatorios(request):
     bairros = [bairro[0] for bairro in Endereco.BAIRROS_CHOICES]
 
     selected_bairros = request.GET.getlist('bairros')
-
-
-    if not selected_bairros:
-        selected_bairros = ''
     
-    return render(request, 'relatorios.html', {'pessoas':pessoas, 'total_pessoas':total_pessoas, 'bairros':bairros, 'selected_bairros':selected_bairros})
+    deficiencia_por_bairro = []
 
+    for bairro in selected_bairros:
+        deficiencia_por_bairro.append(Pessoa.objects.filter(Q(enderecos__bairro__icontains=bairro)).count())
+
+    return render(request, 'relatorios.html', {'pessoas': pessoas, 'total_pessoas': total_pessoas, 'bairros': bairros, 'selected_bairros': selected_bairros, 'deficiencia_por_bairro': deficiencia_por_bairro})
 
 
 def logar(request):
