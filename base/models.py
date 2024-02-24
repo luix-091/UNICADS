@@ -67,7 +67,7 @@ class Pessoa(models.Model):
     ],
         default='Não informado',
     )
-    enderecos = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True, default=None)
+    endereco = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True, default=None)
     deficiencia = models.CharField(max_length=15,
                                    choices=[
                                         ('Física', 'Física'),

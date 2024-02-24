@@ -27,15 +27,15 @@
             <ul>
                 <li>CPF: {{ pessoa.cpf }}</li>
                 <li>NASC: {{ pessoa.data_nasc|date:"d/m/Y" }}</li>
-                {% if pessoa.genero == 'M' %}
+                {% if pessoa.genero == 'Masculino' %}
                 <li>GÊNERO: Masculino</li>
                 {% else %}
                 <li>GÊNERO: Feminino</li>
                 {% endif %}
                 <br>
-                <li>LOGRADOURO: {{ pessoa.enderecos.logradouro }}</li>
-                <li>BAIRRO: {{ pessoa.enderecos.bairro }}</li>
-                <li>REGIÃO: {{ pessoa.enderecos.regiao }}</li>
+                <li>LOGRADOURO: {{ pessoa.endereco.logradouro }}</li>
+                <li>BAIRRO: {{ pessoa.endereco.bairro }}</li>
+                <li>REGIÃO: {{ pessoa.endereco.regiao }}</li>
             </ul>       
             <p class="deficiencia">DEFICIÊNCIA: {{ pessoa.deficiencia }}</p>
             {% if pessoa.detalhes %}

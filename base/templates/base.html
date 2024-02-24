@@ -14,6 +14,7 @@
             <div class="header-esquerda">
                 <a href="{% url 'home' %}">UNICADS</a>
             </div>
+            {% if not login %}
             <div class="header-centro">
                 <div class="pessoas">
                     <a href="{% url 'pessoas' %}">Pessoas
@@ -26,6 +27,7 @@
                     </a>
                 </div>
             </div>
+            {% endif %}
             <div class="header-direita">
                 {% if user.is_authenticated %}
             <button type="submit" class="logout" onclick="location.href='{% url 'logout' %}'">Sair</button>

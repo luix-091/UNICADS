@@ -51,7 +51,7 @@ const ctx = document.getElementById('grafico');
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: {{ selected_bairros|safe }},
+    labels: {{ bairros_com_data|safe }},
     datasets: [
       {
         label: 'Física',

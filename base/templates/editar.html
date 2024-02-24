@@ -29,8 +29,8 @@
                         <div class="form-group">
                             <label for="id_genero">GÊNERO:</label>
                             <select name="genero" id="id_genero">
-                                <option value="M"{% if form_pessoa.genero == 'M' %}selected{% endif %}>Masculino</option>
-                                <option value="F"{% if form_pessoa.genero == 'F' %}selected{% endif %}>Feminino</option>
+                                <option value="Masculino"{% if form_pessoa.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
+                                <option value="Feminino"{% if form_pessoa.genero == 'Feminino' %}selected{% endif %}>Feminino</option>
                             </select>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                 <div class="endereco">
                     <div class="form-group">
                         <label for="id_logradouro">LOGRADOURO:</label>
-                        <input type="text" name="logradouro" id="id_logradouro" autocomplete="off" value="{{ form_pessoa.instance.enderecos.logradouro }}">
+                        <input type="text" name="logradouro" id="id_logradouro" autocomplete="off" value="{{ form_pessoa.instance.endereco.logradouro }}">
                     </div>
         
                     <div class="form-group">
@@ -69,14 +69,14 @@
                             <select name="bairro" id="id_bairro" required>
                                 <option value="" disabled>-- Selecione uma opção --</option>
                                 {% for bairro in bairros %}
-                                <option value="{{ bairro }}" {% if form_pessoa.instance.enderecos.bairro == bairro %}selected{% endif %}>{{ bairro }}</option>
+                                <option value="{{ bairro }}" {% if form_pessoa.instance.endereco.bairro == bairro %}selected{% endif %}>{{ bairro }}</option>
                                 {% endfor %}
                             </select>
                     </div>
         
                     <div class="form-group">
                         <label for="id_regiao">REGIÃO:</label>
-                        <input type="text" name="regiao" id="id_regiao" autocomplete="off" value="{{ form_pessoa.instance.enderecos.regiao }}">
+                        <input type="text" name="regiao" id="id_regiao" autocomplete="off" value="{{ form_pessoa.instance.endereco.regiao }}">
                     </div>
                 </div>
             </div>

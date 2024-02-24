@@ -6,7 +6,7 @@ class PessoaForm(forms.ModelForm):
     necessidades = forms.CharField(required=False)
     class Meta:
         model = Pessoa
-        fields = ['nome', 'cpf', 'data_nasc', 'genero', 'deficiencia','detalhes', 'necessidades', ]
+        fields = ['nome', 'cpf', 'data_nasc', 'genero', 'deficiencia','detalhes', 'necessidades']
 
 class EnderecoForm(forms.ModelForm):
     class Meta:
