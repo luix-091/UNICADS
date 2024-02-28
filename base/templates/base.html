@@ -7,6 +7,160 @@
     <link rel="shortcut icon" href="{% static 'imgs/logo.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% block css %}{% endblock %}">
     <title>{% block titulo %}UNICAD{% endblock %}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Lato:wght@700&family=Quicksand&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 900px;
+            min-width: fit-content;
+            background-color: rgb(215, 236, 255);
+        }
+        footer {
+            background-color: #2e2a2d;
+            color: #fff;
+            text-align: center;
+            padding: 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        header {
+            display: flex;
+            width: 100%;
+            background: linear-gradient(to left, #36519a 10%, #7caeff 40%, #99d6ff);
+            color: #fff;
+        }
+        .header-content{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            height: 100px;
+        }
+        
+        .header-esquerda a{
+            padding-left: 5px;
+            padding-right: 5px;
+            font-size: 56px;
+            font-family: 'Lato', sans-serif;
+            text-decoration: none;
+            color: #36519a;
+            margin-left: 30px;
+            border-radius: 5px;
+        }
+        
+        .header-esquerda a:hover{
+            transition: 0.5s all;
+            opacity: 0.7;
+        }
+        
+        .header-centro{
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            height: 100px;
+        }
+        
+        .pessoas,
+        .relatorio{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .pessoas a,
+        .relatorio a {
+            display: inline-block;
+            padding: 10px;
+            margin-top: -7px;
+            font-size: 42px;
+            font-family: 'Kanit', sans-serif;
+            text-decoration: none;
+            color: #ffffff;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+        }
+        
+        .pessoas i,
+        .relatorio i {
+            margin-left: 10px;
+            font-size: 32px;
+        }
+        
+        .pessoas a::after,
+        .relatorio a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            height: 3px;
+            width: 100%;
+            background-color: #ffffff;
+            transition: background-color 0.3s ease;
+        }
+        
+        .pessoas a:hover {
+            color: #36519a;
+        }
+        
+        .relatorio a:hover{
+            color: #092266;
+        }
+        
+        .pessoas a:hover::after,
+        .relatorio a:hover::after {
+            background-color: #000000;
+        }
+        
+        .header-direita{
+            display: flex;
+            height: 100px;
+        }
+        
+        .header-content img{
+            margin-right: 10px;
+            height: 100px;
+        }
+        
+        .header-content button {
+            font-family: 'Quicksand', sans-serif;
+            margin: 20px;
+            min-width: 120px;
+            font-size: 22px;
+            background-color: #ffcfcf;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .header-content button:hover {
+            background-color: #ff9999;
+        }
+        
+        .header-content button:focus {
+            outline: none;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgb(255, 255, 255);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 16px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        </style>
 </head>
 <body>
     <header>
@@ -17,13 +171,15 @@
             {% if not login %}
             <div class="header-centro">
                 <div class="pessoas">
-                    <a href="{% url 'pessoas' %}">Pessoas
-                        <i class="fas fa-user"></i>
+                    <a href="{% url 'pessoas' %}">
+                        Pessoas
+                        <span><i class="fas fa-user"></i></span>
                     </a>
                 </div>
                 <div class="relatorio">
-                    <a href="{% url 'relatorio' %}">Relatório
-                        <i class="fas fa-newspaper"></i>
+                    <a href="{% url 'relatorio' %}">
+                        Relatório
+                        <span><i class="fas fa-newspaper"></i></span>
                     </a>
                 </div>
             </div>
@@ -42,145 +198,4 @@
         <p>© 2024 UNICADS. Todos os direitos reservados.</p>
     </footer>
 </body>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-body {
-    margin: 0;
-    padding: 0;
-    min-height: 900px;
-    min-width: fit-content;
-    background-color: rgb(215, 236, 255);
-}
-footer {
-    background-color: #2e2a2d;
-    color: #fff;
-    text-align: center;
-    padding: 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-header {
-    display: flex;
-    width: 100%;
-    background: linear-gradient(to left, #36519a 10%, #7caeff 60%, #afdfff);
-    color: #fff;
-}
-.header-content{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
-    height: 100px;
-}
-
-.header-esquerda a{
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 56px;
-    font-family: 'Kanit', sans-serif;
-    text-decoration: none;
-    color: #36519a;
-    margin-left: 30px;
-    border-radius: 5px;
-}
-
-.header-esquerda a:hover{
-    transition: 0.5s all;
-    opacity: 0.7;
-}
-
-.header-centro{
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    height: 100px;
-    font-size: 10px;
-}
-
-.pessoas,
-.relatorio{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.pessoas a,
-.relatorio a{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    padding-left: 13px;
-    padding-right: 13px;
-    font-size: 40px;
-    font-family: 'Quicksand';
-    text-decoration: none;
-    background-color: #afdfff;
-    border-radius: 5px;
-    color: #36519a;
-    transition: background-color 0.3s ease;
-}
-
-.pessoas i,
-.relatorio i{
-    margin-left: 10px;
-}
-
-.pessoas a:hover,
-.relatorio a:hover{
-    background-color: #42b3ff;
-}
-
-.header-direita{
-    display: flex;
-    height: 100px;
-}
-
-.header-content img{
-    margin-right: 10px;
-    height: 100px;
-}
-
-.header-content button {
-    font-family: 'Quicksand', sans-serif;
-    margin: 20px;
-    min-width: 120px;
-    font-size: 22px;
-    background-color: #ffcfcf;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.header-content button:hover {
-    background-color: #ff9999;
-}
-
-.header-content button:focus {
-    outline: none;
-}
-
-::-webkit-scrollbar {
-    width: 15px; /* largura da barra de rolagem */
-}
-
-/* Cor de fundo da barra de rolagem */
-::-webkit-scrollbar-track {
-    background: rgb(215, 236, 255);
-}
-
-/* Cor do indicador da barra de rolagem */
-::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-/* Hover na barra de rolagem */
-::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-</style>
 </html>

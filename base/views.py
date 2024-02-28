@@ -138,7 +138,7 @@ def logar(request):
                 return redirect('home')
         else:
             erro_login = 'Credenciais incorretas. Por favor, tente novamente.'
-    return render(request, 'login.html', {'erro_login': erro_login})
+    return render(request, 'login.html', {'erro_login': erro_login, 'login': True})
 
 def deslogar(request):
     logout(request)

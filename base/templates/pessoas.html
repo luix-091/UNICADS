@@ -5,11 +5,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <main>
     <div class="cima">
-        <div class="cadastrar">
-            <form action="{% url 'cadastro' %}">
-                <button class="cadastro" type="submit"><i class="fas fa-plus"></i>Cadastrar Nova Pessoa</button>
-            </form>
-        </div>
         <form method="get" class="caixa-de-pesquisa">
             <div class="caixa">
                 <input type="text" name="pesquisa" id="id_pesquisa" autocomplete="off" placeholder="Caixa de Pesquisa">
@@ -19,6 +14,11 @@
                     <button type="submit" class="btn">Pesquisar</button>
             </div>
         </form>
+        <div class="cadastrar">
+            <form action="{% url 'cadastro' %}">
+                <button class="cadastro" type="submit"><i class="fas fa-plus"></i>Cadastrar</button>
+            </form>
+        </div>
     </div>
     <div class="conteudo">
         {% for pessoa in pessoas %}

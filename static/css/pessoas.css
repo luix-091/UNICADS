@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Nunito&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit&family=Lato:wght@700&family=Nunito&family=Poppins&family=Quicksand&display=swap');
 
 main{
     display: flex;
@@ -8,27 +8,24 @@ main{
 }
 
 .cima{
-    width: 100%;
+    width: 97%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
-
-.cadastrar{
     margin-top: 10px;
-    margin-left: 25px;
-    align-self: flex-start;
 }
 
 .cadastro{
-    width: 400px;
-    height: 70px;
-    font-size: 32px;
+    width: 100%;
+    padding: 15px;
+    height: 65px;
+    margin-left: 10px;
+    font-size: 30px;
     font-family: 'Lato';
     background-color: rgb(117, 161, 255);
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
     transition: background 0.3s ease;
 }
@@ -63,9 +60,9 @@ main{
     width: 400px;
     padding: 10px;
     border: 2px solid #ccc;
-    border-radius: 25px;
+    border-radius: 15px;
     font-size: 24px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Nunito';
     outline: none;
 }
 
@@ -76,9 +73,9 @@ main{
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 25px;
+    border-radius: 15px;
     font-size: 18px;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Nunito';
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -86,7 +83,6 @@ main{
 .botao button:hover {
     background-color: #0056b3;
 }
-
 
 
 .conteudo{
@@ -100,7 +96,7 @@ main{
     border-radius: 15px;
 }
 
-.pessoa{
+.pessoa {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

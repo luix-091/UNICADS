@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato&family=Nunito&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit&family=Lato:wght@700&family=Nunito&family=Poppins&family=Quicksand&display=swap');
 
 main{
     width: 100%;
@@ -27,12 +27,12 @@ main{
 .edit-form {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 
 .dados{
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 .pessoa{
@@ -41,15 +41,13 @@ main{
 }
 
 .pessoa .direita{
+    margin-top: -3px;
     margin-left: 100px;
 }
 
-.pessoa .esquerda{
-    margin-left: -50px;
-}
-
 .endereco{
-    margin-left: 110px;
+    width: 300px;
+    margin-left: 350px;
 }
 
 .form-group {
@@ -59,30 +57,37 @@ main{
 }
 
 .form-group label {
-    font-weight: bold;
-    font-family: 'Lato';
+    font-family: 'Quicksand';
+    font-size: 18px;
     margin-bottom: 7px;
 }
 
-.form-group select {
-    font-family: 'Lato';
+.form-group select,
+.form-group input {
+    font-family: 'Nunito';
     padding: 8px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    width: 130%;
+    width: 140%;
 }
 
 .direita select{
-    margin-top: 5px;
+    margin-top: 3px;
     font-size: 16px;
-    width: 190%;
+    width: 180%;
+}
+
+input#id_logradouro,
+input#id_regiao,
+select#id_bairro{
+    width: 105%;
 }
 
 #id_necessidades,
 #id_detalhes{
-    width: 170%;
+    width: 180%;
 }
 
 .botao {
@@ -106,15 +111,4 @@ main{
 
 .botao button:hover {
     background-color: #34b45f;
-}
-
-input[type="text"],
-input[type="date"] {
-    width: 120%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    font-family: 'Lato';
-    outline: none;
 }

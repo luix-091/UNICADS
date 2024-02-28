@@ -58,51 +58,75 @@ var myChart = new Chart(ctx, {
         data: {{ deficiencia_fisica_por_bairro|safe }},
         backgroundColor: 'rgba(163, 75, 122, 0.7)',
         borderColor: 'rgba(245, 59, 158, 1)',
-        borderWidth: 3
+        borderWidth: 1.8
       },
       {
         label: 'Visual',
         data: {{ deficiencia_visual_por_bairro|safe }},
         backgroundColor: 'rgba(60, 69, 163, 0.7)',
         borderColor: 'rgba(20, 40, 255, 1)',
-        borderWidth: 3
+        borderWidth: 1.8
       },
       {
         label: 'Auditiva',
         data: {{ deficiencia_auditiva_por_bairro|safe }},
         backgroundColor: 'rgba(209, 200, 100, 0.7)',
         borderColor: 'rgba(242, 225, 36, 1)',
-        borderWidth: 3
+        borderWidth: 1.8
       },
       {
         label: 'Intelectual',
         data: {{ deficiencia_intelectual_por_bairro|safe }},
         backgroundColor: 'rgba(87, 168, 82, 0.7)',
         borderColor: 'rgba(52, 122, 48, 1)',
-        borderWidth: 3
+        borderWidth: 1.8
       },
       {
         label: 'Psicossocial',
         data: {{ deficiencia_psicossocial_por_bairro|safe }},
         backgroundColor: 'rgba(219, 83, 83, 0.7)',
         borderColor: 'rgba(232, 46, 46, 1)',
-        borderWidth: 3
+        borderWidth: 1.8
       }
     ]
   },
   options: {
     scales: {
-      x: { stacked: true },
+      x: { stacked: true,
+          ticks: {
+            font: {
+              family: 'Arial',
+              size: 18
+            }
+          } 
+      },
       y: { stacked: true,
           beginAtZero: true,
           ticks: {
-          callback: function(value, index, values) {
-            return Number.isInteger(value) ? value : '';
-          }
-        } 
-      }
-    },
+            font: {
+              family: 'Arial',
+              size: 22
+            },
+            callback: function(value, index, values) {
+              return Number.isInteger(value) ? value : '';
+            }
+          }  
+        }
+      },
     barPercentage: 0.7,
+    plugins: {
+      legend: {
+        labels: {
+          font: {
+            family: 'Arial',
+            size: 24
+          }
+        },
+        padding: {
+          bottom: 30
+        }
+      }
+    }
   }
 });
 

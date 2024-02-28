@@ -1,43 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit&family=Lato:wght@700&family=Nunito&family=Poppins&family=Quicksand&display=swap');
 
-
-main{
-    margin: 0;
-    padding: 0;
+main {
+    min-height: 760px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .login-box {
-    margin-top: 10%;
-    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 400px;
+    height: 350px;
     background: #fff;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 10px 10px 130px 0 rgba(0, 0, 0, 0.2);
 }
 
-.login-box h2 {
+.login-box h1 {
     font-family: 'Kanit';
-    margin: 0 0 20px;
     padding: 0;
-    font-size: 34px;
+    font-size: 42px;
+    margin-bottom: 10px;
+    margin-top: 0px;
     color: #333;
     text-align: center;
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 80%;
+}
+
 .textbox {
     position: relative;
-    margin-bottom: 20px;
+    font-size: 34px;
+    margin-bottom: 10px;
 }
 
 .textbox input {
     font-family: 'Montserrat', sans-serif;
-    width: 280px;
+    width: 350px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -45,9 +55,10 @@ main{
 }
 
 .btn {
-    width: 300px;
+    width: 370px;
     padding: 10px;
     font-size: 22px;
+    margin-top: 120px;
     font-family: 'Lato', sans-serif;
     background: #007bff;
     color: #fff;
@@ -62,11 +73,17 @@ main{
 }
 
 .error-message {
+    display: flex;
+    align-items: flex-end;
     color: red;
-    margin-top: 20px;
-    font-size: 18px;
     opacity: 0;
     animation: fadeIn 2s forwards;
+}
+
+.error-message p {
+    font-family: 'Lato';
+    margin: 0;
+    font-size: 17px;
 }
 
 @keyframes fadeIn {
