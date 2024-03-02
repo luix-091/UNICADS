@@ -42,6 +42,7 @@ h1 {
     text-align: center;
 }
 
+.meio,
 .baixo{
     display: flex;
     flex-direction: column;
@@ -56,12 +57,13 @@ h1 {
     font-size: 20px;
 }
 
-.apresentacao-baixo{
+.apresentacao-meio{
     display: flex;
     flex-direction: column;
 }
 
-.text-bairros{
+.text-bairros,
+.text-deficiencias{
     text-align: center;
     text-decoration: underline #007bff;
     font-size: 30px;
@@ -73,8 +75,10 @@ h1 {
     justify-content: space-around;
 }
 
-.todos,
-.expand-icon{
+.bairro_todos,
+.deficiencia_todos,
+.deficiencia_expand-icon,
+.bairro_expand-icon{
     align-self: flex-end;
     margin-top: 5px;
     background-color: #a3d0ff;
@@ -87,14 +91,17 @@ h1 {
     transition: background-color 0.3s;
 }
 
-.todos:hover,
-.expand-icon:hover{
+.bairro_todos:hover,
+.deficiencia_todos:hover,
+.deficiencia_expand-icon:hover,
+.bairro_expand-icon:hover{
     background-color: #0056b3;
     color: #fff;
 }
 
 
-.checkboxes {
+.bairro_checkboxes,
+.deficiencia_checkboxes {
     font-size: 16px;
     font-family: 'Nunito';
     margin-top: 10px;
@@ -118,12 +125,10 @@ h1 {
     background-color: #0056b3;
 }
 
-
-
 .conteudo{
     display: flex;
     width: 80%;
-    height: 1078px;
+    min-height: 530px;
 }
 
 .selecione_bairros{

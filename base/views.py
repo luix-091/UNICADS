@@ -5,6 +5,7 @@ from django.db.models import Q
 from .models import Pessoa, Endereco
 from .forms import PessoaForm, EnderecoForm
 from datetime import datetime
+from random import randint
 
 # Create your views here.
 @login_required(login_url="login/")
@@ -87,46 +88,143 @@ def editar_pessoa(request, pessoa_id):
 
 @login_required(login_url='login/')
 def relatorio(request):
-
     pessoas = Pessoa.objects.all()
-    total_pessoas = '{:,}'.format(Pessoa.objects.all().count()).replace(',', '.')
-
+    total_pessoas = '{:,}'.format(pessoas.count()).replace(',', '.')
     selected_bairros = request.GET.getlist('bairros')
+    selected_deficiencias = request.GET.getlist('deficiencias')
+
     bairros_com_data = []
-    
-    deficiencia_fisica_por_bairro = []
-    deficiencia_visual_por_bairro = []
-    deficiencia_auditiva_por_bairro = []
-    deficiencia_intelectual_por_bairro = []
-    deficiencia_psicossocial_por_bairro = []
+    deficiencias_com_data = []
 
+    deficiencias_por_bairro = {
+        'Física': [],
+        'Visual': [],
+        'Auditiva': [],
+        'Intelectual': [],
+        'Psicossocial': []
+    }
+    bairro_por_deficiencia = {
+        'Água Verde': [],
+        'Águas Claras': [],
+        'Amizade': [],
+        'Barra do Rio Cerro': [],
+        'Barra do Rio Molha': [],
+        'Boa Vista': [],
+        'Braço Ribeirão Cavalo': [],
+        'Centenário': [],
+        'Centro': [],
+        'Chico de Paulo': [],
+        'Czerniewicz': [],
+        'Estrada Nova': [],
+        'Ilha da Figueira': [],
+        'Jaraguá 84': [],
+        'Jaraguá 99': [],
+        'Jaraguá Esquerdo': [],
+        'João Pessoa': [],
+        'Nereu Ramos': [],
+        'Nova Brasília': [],
+        'Parque Malwee': [],
+        'Rau': [],
+        'Ribeirão Cavalo': [],
+        'Rio Cerro I': [],
+        'Rio Cerro II': [],
+        'Rio da Luz': [],
+        'Rio Molha': [],
+        'Santa Luzia': [],
+        'Santo Antônio': [],
+        'São Luís': [],
+        'Tifa Martins': [],
+        'Tifa Monos': [],
+        'Três Rios do Norte': [],
+        'Três Rios do Sul': [],
+        'Vieira': [],
+        'Vila Baependi': [],
+        'Vila Lalau': [],
+        'Vila Lenzi': [],
+        'Vila Nova': []
+    }
+
+    CORES = {
+    'Água Verde': 'rgba(255, 0, 0, 0.7)',
+    'Águas Claras': 'rgba(0, 255, 0, 0.7)',
+    'Amizade': 'rgba(0, 0, 255, 0.7)',
+    'Barra do Rio Cerro': 'rgba(255, 255, 0, 0.7)',
+    'Barra do Rio Molha': 'rgba(255, 0, 255, 0.7)',
+    'Boa Vista': 'rgba(0, 255, 255, 0.7)',
+    'Braço Ribeirão Cavalo': 'rgba(128, 0, 0, 0.7)',
+    'Centenário': 'rgba(0, 128, 0, 0.7)',
+    'Centro': 'rgba(0, 0, 128, 0.7)',
+    'Chico de Paulo': 'rgba(128, 128, 0, 0.7)',
+    'Czerniewicz': 'rgba(128, 0, 128, 0.7)',
+    'Estrada Nova': 'rgba(0, 128, 128, 0.7)',
+    'Ilha da Figueira': 'rgba(64, 0, 0, 0.7)',
+    'Jaraguá 84': 'rgba(0, 64, 0, 0.7)',
+    'Jaraguá 99': 'rgba(0, 0, 64, 0.7)',
+    'Jaraguá Esquerdo': 'rgba(64, 64, 0, 0.7)',
+    'João Pessoa': 'rgba(64, 0, 64, 0.7)',
+    'Nereu Ramos': 'rgba(0, 64, 64, 0.7)',
+    'Nova Brasília': 'rgba(32, 0, 0, 0.7)',
+    'Parque Malwee': 'rgba(0, 32, 0, 0.7)',
+    'Rau': 'rgba(0, 0, 32, 0.7)',
+    'Ribeirão Cavalo': 'rgba(32, 32, 0, 0.7)',
+    'Rio Cerro I': 'rgba(32, 0, 32, 0.7)',
+    'Rio Cerro II': 'rgba(0, 32, 32, 0.7)',
+    'Rio da Luz': 'rgba(16, 0, 0, 0.7)',
+    'Rio Molha': 'rgba(0, 16, 0, 0.7)',
+    'Santa Luzia': 'rgba(0, 0, 16, 0.7)',
+    'Santo Antônio': 'rgba(16, 16, 0, 0.7)',
+    'São Luís': 'rgba(16, 0, 16, 0.7)',
+    'Tifa Martins': 'rgba(0, 16, 16, 0.7)',
+    'Tifa Monos': 'rgba(8, 0, 0, 0.7)',
+    'Três Rios do Norte': 'rgba(0, 8, 0, 0.7)',
+    'Três Rios do Sul': 'rgba(0, 0, 8, 0.7)',
+    'Vieira': 'rgba(8, 8, 0, 0.7)',
+    'Vila Baependi': 'rgba(8, 0, 8, 0.7)',
+    'Vila Lalau': 'rgba(0, 8, 8, 0.7)',
+    'Vila Lenzi': 'rgba(4, 0, 0, 0.7)',
+    'Vila Nova': 'rgba(0, 4, 0, 0.7)'
+}
+
+
+
+       
     if selected_bairros:
+        selected_deficiencias = None
         for bairro in selected_bairros:
-            if Pessoa.objects.filter(Q(endereco__bairro__icontains=bairro)).count() > 0:
+            pessoas_bairro = pessoas.filter(endereco__bairro__icontains=bairro)
+            if pessoas_bairro.exists():
                 bairros_com_data.append(bairro)
-                deficiencia_fisica_por_bairro.append(Pessoa.objects.filter(
-                Q(endereco__bairro__icontains=bairro) &
-                Q(deficiencia__icontains='Física')
-                ).count())
-                deficiencia_visual_por_bairro.append(Pessoa.objects.filter(
-                Q(endereco__bairro__icontains=bairro) &
-                Q(deficiencia__icontains='Visual')
-                ).count())
-                deficiencia_auditiva_por_bairro.append(Pessoa.objects.filter(
-                Q(endereco__bairro__icontains=bairro) &
-                Q(deficiencia__icontains='Auditiva')
-                ).count())
-                deficiencia_intelectual_por_bairro.append(Pessoa.objects.filter(
-                Q(endereco__bairro__icontains=bairro) &
-                Q(deficiencia__icontains='Intelectual')
-                ).count())
-                deficiencia_psicossocial_por_bairro.append(Pessoa.objects.filter(
-                Q(endereco__bairro__icontains=bairro) &
-                Q(deficiencia__icontains='Psicossocial')
-                ).count())
+                for deficiencia in deficiencias_por_bairro.keys():
+                    deficiencias_por_bairro[deficiencia].append(pessoas_bairro.filter(deficiencia__icontains=deficiencia).count())
+    if selected_deficiencias:
+        selected_bairros = None
+        for deficiencia in selected_deficiencias:
+            pessoas_deficiencia = pessoas.filter(deficiencia__icontains=deficiencia)
+            if pessoas_deficiencia.exists():
+                deficiencias_com_data.append(deficiencia)
+                for bairro in bairro_por_deficiencia.keys():
+                    bairro_por_deficiencia[bairro].append(pessoas_deficiencia.filter(endereco__bairro__icontains=bairro).count())
+                
+    context = {
+        'pessoas': pessoas,
+        'total_pessoas': total_pessoas,
+        'bairros': [bairro[0] for bairro in Endereco.BAIRROS_CHOICES],
+        'selected_bairros': selected_bairros,
+        'deficiencias': [deficiencia[0] for deficiencia in Pessoa.DEFICIENCIA_CHOICES],
+        'selected_deficiencias': selected_deficiencias,
+        'bairros_com_data': bairros_com_data,
+        'deficiencia_com_data': deficiencias_com_data,
+        'deficiencia_por_bairro': deficiencias_por_bairro,
+        'bairro_por_deficiencia': bairro_por_deficiencia,
+        'bairros_keys': [bairro for bairro in bairro_por_deficiencia.keys()],
+        'cores_bairros': CORES
+    }
 
-    return render(request, 'relatorios.html', {'pessoas': pessoas, 'total_pessoas': total_pessoas, 'bairros': [bairro[0] for bairro in Endereco.BAIRROS_CHOICES], 'selected_bairros': selected_bairros, 'bairros_com_data':bairros_com_data, 'deficiencia_fisica_por_bairro': deficiencia_fisica_por_bairro,'deficiencia_auditiva_por_bairro': deficiencia_auditiva_por_bairro,'deficiencia_visual_por_bairro': deficiencia_visual_por_bairro,'deficiencia_intelectual_por_bairro': deficiencia_intelectual_por_bairro,'deficiencia_psicossocial_por_bairro': deficiencia_psicossocial_por_bairro})
 
+    context.update(deficiencias_por_bairro)
+    context.update(bairro_por_deficiencia)
+
+    return render(request, 'relatorios.html', context)
 
 def logar(request):
     erro_login = None

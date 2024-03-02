@@ -56,6 +56,15 @@ class Endereco(models.Model):
         return self.logradouro
 
 class Pessoa(models.Model):
+
+    DEFICIENCIA_CHOICES = [
+        ('Física', 'Física'),
+        ('Auditiva', 'Auditiva'),
+        ('Visual', 'Visual'),
+        ('Intelectual', 'Intelectual'),
+        ('Psicossocial', 'Psicossocial')
+    ]
+
     nome =  models.CharField(max_length=200, blank=False, null=False)
     cpf = models.CharField(max_length=20)
     data_nasc = models.DateField()
@@ -69,13 +78,7 @@ class Pessoa(models.Model):
     )
     endereco = models.ForeignKey(Endereco, on_delete=models.SET_NULL, null=True, default=None)
     deficiencia = models.CharField(max_length=15,
-                                   choices=[
-                                        ('Física', 'Física'),
-                                        ('Auditiva', 'Auditiva'),
-                                        ('Visual', 'Visual'),
-                                        ('Intelectual', 'Intelectual'),
-                                        ('Psicossocial', 'Psicossocial'),
-                                   ],
+                                   choices=DEFICIENCIA_CHOICES,
                                    default='Não informada')
     detalhes = models.CharField(max_length=300, default='Não Fornecido')
     necessidades = models.CharField(max_length=300, default='Não Fornecida')

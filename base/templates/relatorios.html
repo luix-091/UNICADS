@@ -11,21 +11,21 @@
                 {{ total_pessoas }}
             </div>
         </div>
-        <div class="baixo">
-            <div class="apresentacao-baixo">
+        <div class="meio">
+            <div class="apresentacao-meio">
                 <div class="text-bairros">
                     Bairros
                 </div>
                 <div class="botoes">
-                  <button class="todos" onclick="marcarTodos()">
+                  <button class="bairro_todos" onclick="marcarTodos('bairro')">
                     Marcar Todos
                   </button>
-                  <button class="expand-icon" onclick="toggleCheckboxes()">Mostrar Opções</button>
+                  <button class="bairro_expand-icon" onclick="toggleCheckboxes('bairro')">Mostrar Opções</button>
                 </div>
             </div>
             <form method="get">
                 {% csrf_token %}
-                <div class="checkboxes" style="display:none;">
+                <div class="bairro_checkboxes" style="display:none;">
                     {% for bairro in bairros %}
                         <input type="checkbox" id="bairro_{{ forloop.counter }}" name="bairros" value="{{ bairro }}">
                         <label for="bairro_{{ forloop.counter }}">{{ bairro }}</label><br>
@@ -34,9 +34,32 @@
                 <button class="save-button">Filtrar</button>
             </form>
         </div>
+        <div class="baixo">
+          <div class="apresentacao-baixo">
+              <div class="text-deficiencias">
+                  Deficiências
+              </div>
+              <div class="botoes">
+                <button class="deficiencia_todos" onclick="marcarTodos('deficiencia')">
+                  Marcar Todos
+                </button>
+                <button class="deficiencia_expand-icon" onclick="toggleCheckboxes('deficiencia')">Mostrar Opções</button>
+              </div>
+          </div>
+          <form method="get">
+              {% csrf_token %}
+              <div class="deficiencia_checkboxes" style="display:none;">
+                  {% for deficiencia in deficiencias %}
+                      <input type="checkbox" id="deficiencia_{{ forloop.counter }}" name="deficiencias" value="{{ deficiencia }}">
+                      <label for="deficiencia_{{ forloop.counter }}">{{ deficiencia }}</label><br>
+                  {% endfor %}
+              </div>
+              <button class="save-button">Filtrar</button>
+          </form>
+      </div>
     </div>
     <div class="conteudo">
-        {% if selected_bairros %}
+        {% if selected_bairros or selected_deficiencias %}
         <canvas class="grafico" id="grafico"></canvas>
         {% else %}
         <div class="selecione_bairros">
@@ -47,48 +70,64 @@
 </main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+{% load custom_filters %}
 const ctx = document.getElementById('grafico');
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
+    {% if bairros_com_data %}
     labels: {{ bairros_com_data|safe }},
     datasets: [
       {
         label: 'Física',
-        data: {{ deficiencia_fisica_por_bairro|safe }},
+        data: {{ deficiencia_por_bairro.Física|safe }},
         backgroundColor: 'rgba(163, 75, 122, 0.7)',
-        borderColor: 'rgba(245, 59, 158, 1)',
-        borderWidth: 1.8
+        borderColor: 'rgba(0, 0, 0, 1)',
+        borderWidth: 2
       },
       {
         label: 'Visual',
-        data: {{ deficiencia_visual_por_bairro|safe }},
+        data: {{ deficiencia_por_bairro.Visual|safe }},
         backgroundColor: 'rgba(60, 69, 163, 0.7)',
-        borderColor: 'rgba(20, 40, 255, 1)',
-        borderWidth: 1.8
+        borderColor: 'rgba(0, 0, 0, 1)',
+        borderWidth: 2
       },
       {
         label: 'Auditiva',
-        data: {{ deficiencia_auditiva_por_bairro|safe }},
+        data: {{ deficiencia_por_bairro.Auditiva|safe }},
         backgroundColor: 'rgba(209, 200, 100, 0.7)',
-        borderColor: 'rgba(242, 225, 36, 1)',
-        borderWidth: 1.8
+        borderColor: 'rgba(0, 0, 0, 1)',
+        borderWidth: 2
       },
       {
         label: 'Intelectual',
-        data: {{ deficiencia_intelectual_por_bairro|safe }},
+        data: {{ deficiencia_por_bairro.Intelectual|safe }},
         backgroundColor: 'rgba(87, 168, 82, 0.7)',
-        borderColor: 'rgba(52, 122, 48, 1)',
-        borderWidth: 1.8
+        borderColor: 'rgba(0, 0, 0, 1)',
+        borderWidth: 2
       },
       {
         label: 'Psicossocial',
-        data: {{ deficiencia_psicossocial_por_bairro|safe }},
+        data: {{ deficiencia_por_bairro.Psicossocial|safe }},
         backgroundColor: 'rgba(219, 83, 83, 0.7)',
-        borderColor: 'rgba(232, 46, 46, 1)',
-        borderWidth: 1.8
+        borderColor: 'rgba(0, 0, 0, 1)',
+        borderWidth: 2
       }
     ]
+    {% elif deficiencia_com_data %}
+    labels: {{ deficiencia_com_data|safe }},
+    datasets: [
+      {% for bairro in bairros_keys %}
+        {
+          label: '{{ bairro }}',
+          data: {{ bairro_por_deficiencia|get_item:bairro|safe }},
+          backgroundColor: '{{ cores_bairros|get_item:bairro }}',
+          borderColor: 'rgba(0, 0, 0, 1)',
+          borderWidth: 2
+        },
+      {% endfor %}
+    ]
+    {% endif %}
   },
   options: {
     scales: {
@@ -115,6 +154,19 @@ var myChart = new Chart(ctx, {
       },
     barPercentage: 0.7,
     plugins: {
+      title: {
+        display: true,
+        {% if bairros_com_data %}
+        text: 'Bairro por Deficiência',
+        {% elif deficiencia_com_data %}
+        text: 'Deficiência por Bairro',
+        {% endif %}
+        font: {
+          size: 38,
+          family: 'Lato',
+          style: 'normal'
+        }
+      },
       legend: {
         labels: {
           font: {
@@ -125,53 +177,96 @@ var myChart = new Chart(ctx, {
         padding: {
           bottom: 30
         }
+      },
+      tooltip: {
+        bodyFont: {
+          family: 'Poppins',
+          size: 20
+        },
+        titleFont: {
+          family: 'Poppins',
+          size: 22
+        },
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        bodyColor: 'black',
+        titleColor: 'black'
       }
-    }
+    },
   }
 });
 
-function getSelectedBairros() {
-    let checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-    let selectedBairros = [];
-    checkboxes.forEach((checkbox) => {
-        selectedBairros.push(checkbox.value);
+function toggleCheckboxes(tipo) {
+  if (tipo == 'bairro') {
+    let deficienciacheckboxes = document.querySelectorAll('.deficiencia_checkboxes input[type="checkbox"]');
+    let deficiencaboxes = document.querySelector('.deficiencia_checkboxes');
+    deficiencaboxes.style.display = 'none';
+    deficienciacheckboxes.forEach((checkbox) => {
+      if (checkbox.checked == true) {
+        checkbox.checked = false;
+      }
     });
-    console.log(selectedBairros.join(','));
-    return selectedBairros.join(',');
-}
 
-function toggleCheckboxes() {
-  let selectedBairros = getSelectedBairros();
-  let buttonexpandicon = document.querySelector('.expand-icon')
-  let box = document.querySelector('.esquerda')
-  let checkboxes = document.querySelector('.checkboxes');
-  let selecione_bairros = document.querySelector('.selecione-bairros')
-  let grafico = document.querySelector('.grafico')
+    let bairrobuttonexpandicon = document.querySelector('.bairro_expand-icon');
+    let box = document.querySelector('.esquerda');
+    let checkboxes = document.querySelector('.bairro_checkboxes');
+    let selecione_bairros = document.querySelector('.selecione_bairros');
+    let conteudo = document.querySelector('.conteudo');
 
-  if (checkboxes.style.display === 'none') {
+    if (checkboxes.style.display === 'none') {
       checkboxes.style.display = 'block';
-      buttonexpandicon.textContent = 'Esconder Opções'
-      box.style.height = '830px'
-      selecione_bairros.style.height = '1005px'
-  } else {
+      bairrobuttonexpandicon.textContent = 'Esconder Opções';
+      box.style.height = '1430px';
+      selecione_bairros.style.height = '1005px';
+    } else {
       checkboxes.style.display = 'none';
-      buttonexpandicon.textContent = 'Mostrar Opções'
-      box.style.height = '100px'
-      selecione_bairros.style.height = '530px'
+      bairrobuttonexpandicon.textContent = 'Mostrar Opções';
+      box.style.height = '100px';
+      selecione_bairros.style.height = '530px';
+    }
+  } else {
+    let bairrocheckboxes = document.querySelectorAll('.bairro_checkboxes input[type="checkbox"]');
+    let bairroboxes = document.querySelector('.bairro_checkboxes');
+    bairroboxes.style.display = 'none';
+    bairrocheckboxes.forEach((checkbox) => {
+      if (checkbox.checked == true) {
+        checkbox.checked = false;
+      }
+    });
+
+    let deficienciabuttonexpandicon = document.querySelector('.deficiencia_expand-icon');
+    let box = document.querySelector('.esquerda');
+    let checkboxes = document.querySelector('.deficiencia_checkboxes');
+    let selecione_bairros = document.querySelector('.selecione_bairros');
+    let conteudo = document.querySelector('.conteudo');
+
+    if (checkboxes.style.display === 'none') {
+      checkboxes.style.display = 'block';
+      deficienciabuttonexpandicon.textContent = 'Esconder Opções';
+      box.style.height = '730px';
+      selecione_bairros.style.height = '1005px';
+    } else {
+      checkboxes.style.display = 'none';
+      deficienciabuttonexpandicon.textContent = 'Mostrar Opções';
+      box.style.height = '100px';
+      selecione_bairros.style.height = '530px';
+    }
   }
 }
-function marcarTodos(){
-  let checkboxes = document.querySelectorAll('input[type="checkbox"]')
-
-  let button = document.querySelector('.todos')
-
-  checkboxes.forEach((checkbox) => {
-    if (checkbox.checked == true){
-      checkbox.checked = false
-    } else{
-      checkbox.checked = true;
+function marcarTodos(tipo) {
+    let checkboxes;
+    if (tipo == 'bairro') {
+      checkboxes = document.querySelectorAll('.bairro_checkboxes input[type="checkbox"]');
+    } else {
+      checkboxes = document.querySelectorAll('.deficiencia_checkboxes input[type="checkbox"]');
     }
-});
-}
+
+    checkboxes.forEach((checkbox) => {
+      if (checkbox.checked == true) {
+        checkbox.checked = false;
+      } else {
+        checkbox.checked = true;
+      }
+    });
+  }
 </script>
 {% endblock %}
