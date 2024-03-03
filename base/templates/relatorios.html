@@ -72,7 +72,7 @@
 <script>
 {% load custom_filters %}
 const ctx = document.getElementById('grafico');
-var legendFontSize = {% if bairros_com_data %} 22 {% elif deficiencia_com_data %} 15 {% endif %};
+var legendFontSize = {% if bairros_com_data %} 22 {% elif deficiencia_com_data %} 15 {% else %} 15 {% endif %};
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {

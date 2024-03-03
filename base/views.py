@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
+from django.urls import reverse
 from .models import Pessoa, Endereco
 from .forms import PessoaForm, EnderecoForm
 from datetime import datetime
-from random import randint
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 @login_required(login_url="login/")
@@ -14,11 +15,11 @@ def home(request):
 
 @login_required(login_url="login/")
 def pessoas(request):
-    pessoas = Pessoa.objects.all().order_by('nome')
+    pessoas_list = Pessoa.objects.all().order_by('nome')
     pesquisa = request.GET.get('pesquisa')
 
     if pesquisa:
-        pessoas = pessoas.filter(
+        pessoas_list = pessoas_list.filter(
             Q(nome__icontains=pesquisa) | 
             Q(cpf__icontains=pesquisa) | 
             Q(data_nasc__icontains=pesquisa) |
@@ -27,11 +28,21 @@ def pessoas(request):
             Q(endereco__regiao__icontains=pesquisa) |
             Q(endereco__bairro__icontains=pesquisa)
         )
+
+    paginator = Paginator(pessoas_list, 12)
+    pagina = request.GET.get('pagina')
+    try:
+        pessoas = paginator.page(pagina)
+    except PageNotAnInteger:
+        pessoas = paginator.page(1)
+    except EmptyPage:
+        pessoas = paginator.page(paginator.num_pages)
     
     for pessoa in pessoas:
         data_nasc_formatada = pessoa.data_nasc.strftime('%d/%m/%Y')
         pessoa.data_nasc = datetime.strptime(data_nasc_formatada, '%d/%m/%Y')
-    return render(request, 'pessoas.html', {'pessoas':pessoas})
+    
+    return render(request, 'pessoas.html', {'pessoas': pessoas})
 
 @login_required(login_url='login/')
 def cad_pessoa(request):

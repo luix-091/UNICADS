@@ -7,6 +7,10 @@ main{
     align-items: center;
 }
 
+footer{
+    display: none;
+}
+
 .cima{
     width: 97%;
     display: flex;
@@ -177,4 +181,35 @@ main{
 
 .apagar:hover{
     background-color: rgb(97, 17, 17);
+}
+
+.paginas {
+    padding: 20px;
+    text-align: center;
+}
+
+.links {
+    display: inline-block;
+    border: 5px solid #8da1ff;
+    padding: 20px;
+    border-radius: 3px;
+    font-family: 'Quicksand';
+    font-size: 26px;
+}
+
+.links a {
+    padding: 5px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+}
+
+.links a:hover {
+    text-decoration: underline;
+    background-color: #738dff;
+}
+
+.atual {
+    font-weight: bold;
 }

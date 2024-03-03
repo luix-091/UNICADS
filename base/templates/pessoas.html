@@ -61,5 +61,22 @@
         </div>
         {% endfor %}
     </div>
+    <div class="paginas">
+        <span class="links">
+            {% if pessoas.has_previous %}
+                <a href="?pagina=1">&laquo; Primeira</a>
+                <a href="?pagina={{ pessoas.previous_page_number }}">Anterior</a>
+            {% endif %}
+    
+            <span class="atual">
+                Página {{ pessoas.number }} de {{ pessoas.paginator.num_pages }}
+            </span>
+    
+            {% if pessoas.has_next %}
+                <a href="?pagina={{ pessoas.next_page_number }}">Próxima</a>
+                <a href="?pagina={{ pessoas.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 </main>
 {% endblock %}
