@@ -72,6 +72,7 @@
 <script>
 {% load custom_filters %}
 const ctx = document.getElementById('grafico');
+var legendFontSize = {% if bairros_com_data %} 22 {% elif deficiencia_com_data %} 15 {% endif %};
 var myChart = new Chart(ctx, {
   type: 'bar',
   data: {
@@ -146,9 +147,7 @@ var myChart = new Chart(ctx, {
               family: 'Poppins',
               size: 20
             },
-            callback: function(value, index, values) {
-              return Number.isInteger(value) ? value : '';
-            }
+            stepSize: 1
           }  
         }
       },
@@ -168,19 +167,15 @@ var myChart = new Chart(ctx, {
         }
       },
       legend: {
+        display: true,
         labels: {
           font: {
             family: 'Quicksand',
-            {% if bairros_com_data %}
-            size: 22
-            {% elif deficiencia_com_data %}
-            size: 15
-            {% endif %}
-          }
+            size: legendFontSize
+          },
         },
-        padding: {
-          bottom: 30
-        }
+        position: 'left',
+        align: 'start'
       },
       tooltip: {
         bodyFont: {

@@ -14,7 +14,7 @@ def home(request):
 
 @login_required(login_url="login/")
 def pessoas(request):
-    pessoas = Pessoa.objects.all()
+    pessoas = Pessoa.objects.all().order_by('nome')
     pesquisa = request.GET.get('pesquisa')
 
     if pesquisa:
