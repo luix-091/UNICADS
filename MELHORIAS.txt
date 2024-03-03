@@ -1,0 +1,4 @@
+MELHORIAS
+
+- Ordenar por ordem do ultimo para o primeiro na pagina pessoas, ou ordem alfabética.
+- Fazer uma seção de páginas dos cadastrados.

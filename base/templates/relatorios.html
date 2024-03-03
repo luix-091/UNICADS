@@ -63,7 +63,7 @@
         <canvas class="grafico" id="grafico"></canvas>
         {% else %}
         <div class="selecione_bairros">
-            <p>Selecione Algum Bairro Para Gerar um Gráfico!</p>
+            <p>Selecione alguma informação para gerar gráfico!</p>
         </div>
         {% endif %}
     </div>
@@ -81,35 +81,35 @@ var myChart = new Chart(ctx, {
       {
         label: 'Física',
         data: {{ deficiencia_por_bairro.Física|safe }},
-        backgroundColor: 'rgba(163, 75, 122, 0.7)',
+        backgroundColor: 'rgba(252, 109, 195, 0.7)',
         borderColor: 'rgba(0, 0, 0, 1)',
         borderWidth: 2
       },
       {
         label: 'Visual',
         data: {{ deficiencia_por_bairro.Visual|safe }},
-        backgroundColor: 'rgba(60, 69, 163, 0.7)',
+        backgroundColor: 'rgba(118, 98, 222, 0.7)',
         borderColor: 'rgba(0, 0, 0, 1)',
         borderWidth: 2
       },
       {
         label: 'Auditiva',
         data: {{ deficiencia_por_bairro.Auditiva|safe }},
-        backgroundColor: 'rgba(209, 200, 100, 0.7)',
+        backgroundColor: 'rgba(60, 240, 99, 0.7)',
         borderColor: 'rgba(0, 0, 0, 1)',
         borderWidth: 2
       },
       {
         label: 'Intelectual',
         data: {{ deficiencia_por_bairro.Intelectual|safe }},
-        backgroundColor: 'rgba(87, 168, 82, 0.7)',
+        backgroundColor: 'rgba(255, 119, 56, 0.7)',
         borderColor: 'rgba(0, 0, 0, 1)',
         borderWidth: 2
       },
       {
         label: 'Psicossocial',
         data: {{ deficiencia_por_bairro.Psicossocial|safe }},
-        backgroundColor: 'rgba(219, 83, 83, 0.7)',
+        backgroundColor: 'rgba(245, 20, 50, 0.7)',
         borderColor: 'rgba(0, 0, 0, 1)',
         borderWidth: 2
       }
@@ -144,7 +144,7 @@ var myChart = new Chart(ctx, {
           ticks: {
             font: {
               family: 'Poppins',
-              size: 22
+              size: 20
             },
             callback: function(value, index, values) {
               return Number.isInteger(value) ? value : '';
@@ -157,9 +157,9 @@ var myChart = new Chart(ctx, {
       title: {
         display: true,
         {% if bairros_com_data %}
-        text: 'Bairro por Deficiência',
-        {% elif deficiencia_com_data %}
         text: 'Deficiência por Bairro',
+        {% elif deficiencia_com_data %}
+        text: 'Bairro por Deficiência',
         {% endif %}
         font: {
           size: 38,
@@ -171,7 +171,11 @@ var myChart = new Chart(ctx, {
         labels: {
           font: {
             family: 'Quicksand',
-            size: 24
+            {% if bairros_com_data %}
+            size: 22
+            {% elif deficiencia_com_data %}
+            size: 15
+            {% endif %}
           }
         },
         padding: {
