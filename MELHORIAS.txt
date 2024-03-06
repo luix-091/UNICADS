@@ -1,3 +1,1 @@
 MELHORIAS
-
-- Fazer uma seção de páginas dos cadastrados.
