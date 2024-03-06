@@ -1,30 +1,34 @@
-{% extends "base.html" %}
-{% load static %}
-{% block css %}{% static 'css/home.css' %}{% endblock %}
+{% extends "base.html" %} {% load static %} 
+{% block css %}{% static 'css/home.css' %}
+{% endblock %}
 {% block conteudo %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
 <main>
-    <div class="introducao">
-        <h1>UNICADS - Unidade de Cadastramento Simplificado</h1>
+  <div class="introducao">
+    <h1>UNICADS - Unidade de Cadastramento Simplificado</h1>
+  </div>
+  <div class="sobre">
+    <div class="sobre-text">
+      <h1>SOBRE:</h1>
+      <ul>
+        <li>PLATAFORMA DE CADASTRO E CENSO DE PESSOAS COM DEFICIÊNCIA</li>
+        <li>MAPEAMENTO DETALHADO DAS NECESSIDADES POR REGIÃO</li>
+        <li>FACILIDADE DE ACESSO E CONSULTA ÀS INFORMAÇÕES</li>
+        <li>
+          SUPORTE NA TOMADA DE DECISÕES PARA MELHORIAS NA QUALIDADE DE VIDA DAS
+          PESSOAS COM DEFICIÊNCIA
+        </li>
+      </ul>
     </div>
-    <div class="sobre">
-        <div class="sobre-text">
-            <h1>SOBRE:</h1>
-            <ul>
-                <li>PLATAFORMA DE CADASTRO E CENSO DE
-                    PESSOAS COM DEFICIÊNCIA</li>
-                <li>MAPEAMENTO DETALHADO DAS
-                    NECESSIDADES POR REGIÃO</li>
-                <li>FACILIDADE DE ACESSO E CONSULTA ÀS
-                    INFORMAÇÕES</li>
-                <li>SUPORTE NA TOMADA DE DECISÕES PARA
-                    MELHORIAS NA QUALIDADE DE VIDA DAS
-                    PESSOAS COM DEFICIÊNCIA</li>
-            </ul>
-        </div>
-        <a href="https://plataforma.gpinovacao.senai.br/plataforma/ideia/236894" target="_blank">
-            <img src="{% static 'imgs/logo2.png' %}" class="logo-main">
-        </a>
-    </div>
+    <a
+      href="https://plataforma.gpinovacao.senai.br/plataforma/ideia/236894"
+      target="_blank"
+    >
+      <img src="{% static 'imgs/logo2.png' %}" class="logo-main" />
+    </a>
+  </div>
 </main>
 {% endblock %}

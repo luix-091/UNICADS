@@ -1,36 +1,48 @@
-{% extends "base.html" %}
-{% load static %}
-{% block css %}{% static 'css/login.css' %}{% endblock %}
-{% block conteudo %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% extends "base.html" %} {% load static %} 
+{% block css %} {% static 'css/login.css' %} {% endblock %} {% block conteudo %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>
 <main>
-    <div class="login-box">
-        <h1>Entrar</h1>
-        <form method="post" class="form">
-            {% csrf_token %}
-            <div class="textbox">
-                <input type="text" placeholder="Usuário" name="user" required autocomplete="off">
-            </div>
-            <div class="textbox">
-                <input type="password" placeholder="Senha" name="senha" required autocomplete="off">
-            </div>
-            <button class="btn" type="submit">Confirmar</button>
-        </form>
-        {% if erro_login %}
-        <div class="error-message">
-            <p>{{ erro_login }}</p>
-        </div>
-        {% endif %}
+  <div class="login-box">
+    <h1>Entrar</h1>
+    <form method="post" class="form">
+      {% csrf_token %}
+      <div class="textbox">
+        <input
+          type="text"
+          placeholder="Usuário"
+          name="user"
+          required
+          autocomplete="off"
+        />
+      </div>
+      <div class="textbox">
+        <input
+          type="password"
+          placeholder="Senha"
+          name="senha"
+          required
+          autocomplete="off"
+        />
+      </div>
+      <button class="btn" type="submit">Confirmar</button>
+    </form>
+    {% if erro_login %}
+    <div class="error-message">
+      <p>{{ erro_login }}</p>
     </div>
+    {% endif %}
+  </div>
 </main>
 <script>
-    var error = document.querySelector('.error-message');
-    if (error){
-        let login_box = document.querySelector('.login-box');
-        login_box.style.height = '380px'
-    }
-    else{
-        login_box.style.height = 'fit-content'
-    }
+  var error = document.querySelector(".error-message");
+  if (error) {
+    let login_box = document.querySelector(".login-box");
+    login_box.style.height = "380px";
+  } else {
+    login_box.style.height = "fit-content";
+  }
 </script>
 {% endblock %}
