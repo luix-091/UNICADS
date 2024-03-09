@@ -1,1 +1,7 @@
 MELHORIAS
+
+- Colocar caixa de Erro ao ter alguma informação errada no form
+- Apagar mais de uma pessoa por vez
+- Melhorar a parte de apagar alguém
+- Ao editar ou apagar alguém, voltar para a última página que o usuário estava
+- Utilizar "Q(endereco__icontains)" na criação ou edição da pessoa, para busca sensitiva de endereço

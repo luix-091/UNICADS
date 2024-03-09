@@ -37,7 +37,7 @@
             </div>
 
             <div class="form-group">
-              <label for="id_nasc">NASC:</label>
+              <label for="id_nasc">NASCIMENTO:</label>
               <input
                 type="date"
                 name="data_nasc"
@@ -56,10 +56,10 @@
           </div>
           <div class="direita">
             <div class="form-group">
-              <label for="id_deficiencia">DEFICIÊNCIA:</label>
-              <select name="deficiencia" id="id_deficiencia" required>
+              <label for="id_deficiencias">DEFICIÊNCIA:</label>
+              <select name="deficiencias" id="id_deficiencias" multiple required>
                 <option value="" disabled selected>
-                  -- Selecione uma opção --
+                  -- Selecione pelo menos uma opção --
                 </option>
                 <option value="Física">Física</option>
                 <option value="Auditiva">Auditiva</option>
@@ -70,7 +70,7 @@
             </div>
 
             <div class="form-group">
-              <label for="id_detalhes">DETALHES:</label>
+              <label for="id_detalhes">DETALHES (OPCIONAL):</label>
               <input
                 type="text"
                 name="detalhes"
@@ -80,7 +80,7 @@
             </div>
 
             <div class="form-group">
-              <label for="id_necessidades">NECESSIDADES:</label>
+              <label for="id_necessidades">NECESSIDADES (OPCIONAL):</label>
               <input
                 type="text"
                 name="necessidades"

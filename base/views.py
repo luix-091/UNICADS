@@ -59,6 +59,12 @@ def cad_pessoa(request):
                     regiao=endereco_data['regiao']
                 )
                 pessoa.endereco = endereco
+            deficiencias = request.POST.getlist('deficiencias')
+            defi = ''
+            for deficiencia in deficiencias:
+                defi += f',{deficiencia}'
+            defi = defi[1:]
+            pessoa.deficiencias = defi
             pessoa.save()
             return redirect('pessoas')
     return render(request, 'cadastro.html', {'bairros': [bairro[0] for bairro in Endereco.BAIRROS_CHOICES]})
@@ -85,11 +91,23 @@ def editar_pessoa(request, pessoa_id):
             if form_endereco.is_valid():
                 endereco_data = form_endereco.cleaned_data
                 endereco, created = Endereco.objects.get_or_create(
-                        logradouro=endereco_data['logradouro'],
-                        bairro=endereco_data['bairro'],
-                        regiao=endereco_data['regiao']
+                    logradouro=endereco_data['logradouro'],
+                    bairro=endereco_data['bairro'],
+                    regiao=endereco_data['regiao']
                 )
+                if created:
+                    if not Pessoa.objects.filter(endereco=pessoa.endereco).exclude(id=pessoa.id).exists():
+                        pessoa.endereco.delete()
+                else:
+                    if pessoa.endereco:
+                        pessoa.endereco.delete()
                 pessoa.endereco = endereco
+            deficiencias = request.POST.getlist('deficiencias')
+            defi = ''
+            for deficiencia in deficiencias:
+                defi += f',{deficiencia}'
+            defi = defi[1:]
+            pessoa.deficiencias = defi
             pessoa.save()
             return redirect('pessoas')
     
@@ -206,11 +224,11 @@ def relatorio(request):
             if pessoas_bairro.exists():
                 bairros_com_data.append(bairro)
                 for deficiencia in deficiencias_por_bairro.keys():
-                    deficiencias_por_bairro[deficiencia].append(pessoas_bairro.filter(deficiencia__icontains=deficiencia).count())
+                    deficiencias_por_bairro[deficiencia].append(pessoas_bairro.filter(deficiencias__icontains=deficiencia).count())
     if selected_deficiencias:
         selected_bairros = None
         for deficiencia in selected_deficiencias:
-            pessoas_deficiencia = pessoas.filter(deficiencia__icontains=deficiencia)
+            pessoas_deficiencia = pessoas.filter(deficiencias__icontains=deficiencia)
             if pessoas_deficiencia.exists():
                 deficiencias_com_data.append(deficiencia)
                 for bairro in bairro_por_deficiencia.keys():
@@ -221,7 +239,7 @@ def relatorio(request):
         'total_pessoas': total_pessoas,
         'bairros': [bairro[0] for bairro in Endereco.BAIRROS_CHOICES],
         'selected_bairros': selected_bairros,
-        'deficiencias': [deficiencia[0] for deficiencia in Pessoa.DEFICIENCIA_CHOICES],
+        'deficiencias': ['Auditiva', 'Física', 'Visual', 'Intelectual', 'Psicossocial'],
         'selected_deficiencias': selected_deficiencias,
         'bairros_com_data': bairros_com_data,
         'deficiencia_com_data': deficiencias_com_data,

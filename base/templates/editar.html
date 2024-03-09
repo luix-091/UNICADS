@@ -22,7 +22,7 @@
                         </div>
             
                         <div class="form-group">
-                            <label for="id_nasc">NASC:</label>
+                            <label for="id_nasc">NASCIMENTO:</label>
                             <input type="date" name="data_nasc" id="id_nasc" autocomplete="off" value="{{ form_pessoa.instance.data_nasc|date:'Y-m-d' }}">
                         </div>
             
@@ -37,23 +37,23 @@
                     <div class="direita">
                         <div class="form-group">
                             <label for="id_deficiencia">DEFICIÊNCIA:</label>
-                            <select name="deficiencia" id="id_deficiencia" required>
-                                <option value="" disabled>-- Selecione uma opção --</option>
-                                <option value="Física" {% if form_pessoa.instance.deficiencia == 'Física' %}selected{% endif %}>Física</option>
-                                <option value="Auditiva" {% if form_pessoa.instance.deficiencia == 'Auditiva' %}selected{% endif %}>Auditiva</option>
-                                <option value="Visual" {% if form_pessoa.instance.deficiencia == 'Visual' %}selected{% endif %}>Visual</option>
-                                <option value="Intelectual" {% if form_pessoa.instance.deficiencia == 'Intelectual' %}selected{% endif %}>Intelectual</option>
-                                <option value="Psicossocial" {% if form_pessoa.instance.deficiencia == 'Psicossocial' %}selected{% endif %}>Psicossocial</option>
+                            <select name="deficiencias" id="id_deficiencias" multiple required>
+                                <option value="" disabled>-- Selecione pelo menos uma opção --</option>
+                                <option value="Física" {% if "Física" in form_pessoa.instance.deficiencias %}selected{% endif %}>Física</option>
+                                <option value="Auditiva" {% if "Auditiva" in form_pessoa.instance.deficiencias %}selected{% endif %}>Auditiva</option>
+                                <option value="Visual" {% if "Visual" in form_pessoa.instance.deficiencias %}selected{% endif %}>Visual</option>
+                                <option value="Intelectual" {% if "Intelectual" in form_pessoa.instance.deficiencias %}selected{% endif %}>Intelectual</option>
+                                <option value="Psicossocial" {% if "Psicossocial" in form_pessoa.instance.deficiencias %}selected{% endif %}>Psicossocial</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="id_detalhes">DETALHES:</label>
+                            <label for="id_detalhes">DETALHES (OPCIONAL):</label>
                             <input type="text" name="detalhes" id="id_detalhes" autocomplete="off" value="{{ form_pessoa.instance.detalhes }}">
                         </div>
     
                         <div class="form-group">
-                            <label for="id_necessidades">NECESSIDADES:</label>
+                            <label for="id_necessidades">NECESSIDADES (OPCIONAL):</label>
                             <input type="text" name="necessidades" id="id_necessidades" autocomplete="off" value="{{ form_pessoa.instance.necessidades }}">
                         </div>
                     </div>

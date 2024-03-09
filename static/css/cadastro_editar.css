@@ -24,30 +24,35 @@ main{
     margin-bottom: 25px;
 }
 
-.edit-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
 .dados{
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .pessoa{
     display: flex;
-    width: 180px;
 }
 
-.pessoa .direita{
-    margin-top: -3px;
-    margin-left: 100px;
+.esquerda input,
+.esquerda select{
+    width: 120%;
+}
+
+.direita{
+    margin-left: 60px;
+}
+
+#id_deficiencias{
+    height: 130px;
 }
 
 .endereco{
-    width: 300px;
-    margin-left: 350px;
+    margin-right: 35px;
+}
+
+.endereco input,
+.endereco select{
+    width: 115%;
 }
 
 .form-group {
@@ -70,24 +75,6 @@ main{
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    width: 140%;
-}
-
-.direita select{
-    margin-top: 3px;
-    font-size: 16px;
-    width: 180%;
-}
-
-input#id_logradouro,
-input#id_regiao,
-select#id_bairro{
-    width: 105%;
-}
-
-#id_necessidades,
-#id_detalhes{
-    width: 180%;
 }
 
 .botao {
