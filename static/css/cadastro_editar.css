@@ -1,101 +1,112 @@
-@import url('https://fonts.googleapis.com/css2?family=Kanit&family=Lato:wght@700&family=Nunito&family=Poppins&family=Quicksand&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kanit&family=Lato:wght@700&family=Nunito&family=Poppins&family=Quicksand&display=swap");
 
-main{
-    width: 100%;
-    min-height: 800px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+main {
+  width: 100%;
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.box{
-    width: 850px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 2px 140px rgba(0, 38, 255, 0.363);
+.box {
+  width: 850px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 140px rgba(0, 38, 255, 0.363);
 }
 
 .text {
-    text-align: center;
-    font-family: 'Nunito';
-    font-size: 42px;
-    margin-top: 10px;
-    margin-bottom: 25px;
+  text-align: center;
+  font-family: "Nunito";
+  font-size: 42px;
+  margin-top: 10px;
+  margin-bottom: 25px;
 }
 
-.dados{
-    display: flex;
-    justify-content: space-between;
+.dados {
+  display: flex;
+  justify-content: space-between;
 }
 
-.pessoa{
-    display: flex;
+.pessoa {
+  display: flex;
 }
 
 .esquerda input,
-.esquerda select{
-    width: 120%;
+.esquerda select {
+  width: 120%;
 }
 
-.direita{
-    margin-left: 60px;
+.direita {
+  margin-left: 60px;
 }
 
-#id_deficiencias{
-    height: 130px;
+#id_deficiencias {
+  height: 130px;
 }
 
-.endereco{
-    margin-right: 35px;
+.endereco {
+  margin-right: 35px;
 }
 
 .endereco input,
-.endereco select{
-    width: 115%;
+.endereco select {
+  width: 115%;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-    font-family: 'Quicksand';
-    font-size: 18px;
-    margin-bottom: 7px;
+  font-family: "Quicksand";
+  font-size: 18px;
+  margin-bottom: 7px;
 }
 
 .form-group select,
 .form-group input {
-    font-family: 'Nunito';
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+  font-family: "Nunito";
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .botao {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .botao button {
-    width: 200px;
-    padding: 10px;
-    background-color: #94ffc4;
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 5px;
-    font-size: 26px;
-    font-family: 'Poppins';
-    cursor: pointer;
-    transition: background 0.3s ease;
+  width: 200px;
+  padding: 10px;
+  background-color: #94ffc4;
+  color: rgb(0, 0, 0);
+  border: none;
+  border-radius: 5px;
+  font-size: 26px;
+  font-family: "Poppins";
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .botao button:hover {
-    background-color: #34b45f;
+  background-color: #34b45f;
+}
+
+.erro {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgb(255, 175, 175);
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'Kanit';
 }

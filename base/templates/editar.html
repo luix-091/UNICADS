@@ -18,17 +18,17 @@
             
                         <div class="form-group">
                             <label for="id_cpf">CPF:</label>
-                            <input type="text" name="cpf" id="id_cpf" autocomplete="off" maxlength="14" value="{{ form_pessoa.instance.cpf }}">
+                            <input type="text" name="cpf" id="id_cpf" autocomplete="off" maxlength="14" value="{{ form_pessoa.instance.cpf }}" required>
                         </div>
             
                         <div class="form-group">
                             <label for="id_nasc">NASCIMENTO:</label>
-                            <input type="date" name="data_nasc" id="id_nasc" autocomplete="off" value="{{ form_pessoa.instance.data_nasc|date:'Y-m-d' }}">
+                            <input type="date" name="data_nasc" id="id_nasc" autocomplete="off" value="{{ form_pessoa.instance.data_nasc|date:'Y-m-d' }}" required>
                         </div>
             
                         <div class="form-group">
                             <label for="id_genero">GÊNERO:</label>
-                            <select name="genero" id="id_genero">
+                            <select name="genero" id="id_genero" required>
                                 <option value="Masculino"{% if form_pessoa.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
                                 <option value="Feminino"{% if form_pessoa.genero == 'Feminino' %}selected{% endif %}>Feminino</option>
                             </select>
@@ -61,7 +61,7 @@
                 <div class="endereco">
                     <div class="form-group">
                         <label for="id_logradouro">LOGRADOURO:</label>
-                        <input type="text" name="logradouro" id="id_logradouro" autocomplete="off" value="{{ form_pessoa.instance.endereco.logradouro }}">
+                        <input type="text" name="logradouro" id="id_logradouro" autocomplete="off" value="{{ form_pessoa.instance.endereco.logradouro }}" required>
                     </div>
         
                     <div class="form-group">
@@ -76,7 +76,7 @@
         
                     <div class="form-group">
                         <label for="id_regiao">REGIÃO:</label>
-                        <input type="text" name="regiao" id="id_regiao" autocomplete="off" value="{{ form_pessoa.instance.endereco.regiao }}">
+                        <input type="text" name="regiao" id="id_regiao" autocomplete="off" value="{{ form_pessoa.instance.endereco.regiao }}" required>
                     </div>
                 </div>
             </div>

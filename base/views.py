@@ -2,11 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
-from django.urls import reverse
 from .models import Pessoa, Endereco
 from .forms import PessoaForm, EnderecoForm
 from datetime import datetime
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import MultipleObjectsReturned
 
 # Create your views here.
 @login_required(login_url="login/")
@@ -29,7 +29,7 @@ def pessoas(request):
             Q(endereco__bairro__icontains=pesquisa)
         )
 
-    paginator = Paginator(pessoas_list, 12)
+    paginator = Paginator(pessoas_list, 16)
     pagina = request.GET.get('pagina')
     try:
         pessoas = paginator.page(pagina)
@@ -53,11 +53,31 @@ def cad_pessoa(request):
             pessoa = form_pessoa.save(commit=False)
             if form_endereco.is_valid():
                 endereco_data = form_endereco.cleaned_data
-                endereco, created = Endereco.objects.get_or_create(
-                    logradouro=endereco_data['logradouro'],
-                    bairro=endereco_data['bairro'],
-                    regiao=endereco_data['regiao']
-                )
+                if ',' not in endereco_data['logradouro']:
+                    idx = 0
+                    for i, char in enumerate(endereco_data['logradouro']):
+                        if char.isalpha():
+                            idx = i
+                    endereco_data['logradouro'] = endereco_data['logradouro'][:idx+1].capitalize() + ',' + endereco_data['logradouro'][idx+1:]
+                endereco_data['regiao'] = endereco_data['regiao'].capitalize()
+                try:
+                    endereco = Endereco.objects.get(
+                        Q(logradouro__icontains=endereco_data['logradouro']) &
+                        Q(bairro__icontains=endereco_data['bairro']) &
+                        Q(regiao__icontains=endereco_data['regiao'])
+                    )
+                except Endereco.DoesNotExist:
+                    endereco = Endereco.objects.create(
+                        logradouro=endereco_data['logradouro'],
+                        bairro=endereco_data['bairro'],
+                        regiao=endereco_data['regiao']
+                    )
+                except MultipleObjectsReturned:
+                    endereco = Endereco.objects.filter(
+                        Q(logradouro__icontains=endereco_data['logradouro']) &
+                        Q(bairro__icontains=endereco_data['bairro']) &
+                        Q(regiao__icontains=endereco_data['regiao'])
+                    ).first()
                 pessoa.endereco = endereco
             deficiencias = request.POST.getlist('deficiencias')
             defi = ''
@@ -67,15 +87,13 @@ def cad_pessoa(request):
             pessoa.deficiencias = defi
             pessoa.save()
             return redirect('pessoas')
+        erros = []
+        for field, error in form_pessoa.errors.items():
+            erros.append(f"{field}: {error.as_text()[2:].capitalize()}")
+        for field, error in form_endereco.errors.items():
+            erros.append(f"{field}: {error.as_text()[2:].capitalize()}")
+        return render(request, 'cadastro.html', {'bairros': [bairro[0] for bairro in Endereco.BAIRROS_CHOICES], 'erros': erros})
     return render(request, 'cadastro.html', {'bairros': [bairro[0] for bairro in Endereco.BAIRROS_CHOICES]})
-
-
-@login_required(login_url="login/")
-def apagar_pessoa(request, pessoa_id):
-    pessoa = get_object_or_404(Pessoa, id=pessoa_id)
-    if request.method == 'POST':
-        pessoa.delete()
-    return redirect('pessoas')
 
 @login_required(login_url='login/')
 def editar_pessoa(request, pessoa_id):
@@ -90,17 +108,29 @@ def editar_pessoa(request, pessoa_id):
             pessoa = form_pessoa.save(commit=False)
             if form_endereco.is_valid():
                 endereco_data = form_endereco.cleaned_data
-                endereco, created = Endereco.objects.get_or_create(
-                    logradouro=endereco_data['logradouro'],
-                    bairro=endereco_data['bairro'],
-                    regiao=endereco_data['regiao']
-                )
-                if created:
-                    if not Pessoa.objects.filter(endereco=pessoa.endereco).exclude(id=pessoa.id).exists():
-                        pessoa.endereco.delete()
-                else:
-                    if pessoa.endereco:
-                        pessoa.endereco.delete()
+                if ',' not in endereco_data['logradouro']:
+                    idx = 0
+                    for i, char in enumerate(endereco_data['logradouro']):
+                        if char.isalpha():
+                            idx = i
+                    endereco_data['logradouro'] = endereco_data['logradouro'][:idx+1].capitalize() + ',' + endereco_data['logradouro'][idx+1:]
+                endereco_data['regiao'] = endereco_data['regiao'].capitalize()
+                try:
+                    endereco = Endereco.objects.get(
+                        Q(logradouro__icontains=endereco_data['logradouro']) &
+                        Q(bairro__icontains=endereco_data['bairro']) &
+                        Q(regiao__icontains=endereco_data['regiao'])
+                    )
+                except Endereco.DoesNotExist:
+                    endereco = Endereco.objects.create(
+                        logradouro=endereco_data['logradouro'],
+                        bairro=endereco_data['bairro'],
+                        regiao=endereco_data['regiao']
+                    )
+                if pessoa.endereco and pessoa.endereco != endereco and Pessoa.objects.filter(Q(endereco__logradouro__icontains=pessoa.endereco.logradouro) &
+                                                                                               Q(endereco__bairro__icontains=pessoa.endereco.bairro) &
+                                                                                               Q(endereco__regiao__icontains=pessoa.endereco.regiao)).count() == 0:
+                    pessoa.endereco.delete()
                 pessoa.endereco = endereco
             deficiencias = request.POST.getlist('deficiencias')
             defi = ''
@@ -110,10 +140,22 @@ def editar_pessoa(request, pessoa_id):
             pessoa.deficiencias = defi
             pessoa.save()
             return redirect('pessoas')
-    
+        erros = []
+        for field, error in form_pessoa.errors.items():
+            erros.append(f"{field}: {error.as_text()[2:].capitalize()}")
+        for field, error in form_endereco.errors.items():
+            erros.append(f"{field}: {error.as_text()[2:].capitalize()}")
+        return render(request, 'cadastro.html', {'bairros': [bairro[0] for bairro in Endereco.BAIRROS_CHOICES], 'erros': erros})
     form_pessoa = PessoaForm(request.POST, instance=pessoa)
     form_endereco = EnderecoForm(request.POST, instance=pessoa.endereco)
     return render(request, 'editar.html', {'form_pessoa': form_pessoa, 'form_endereco': form_endereco, 'pessoa': pessoa, 'bairros':[bairro[0] for bairro in Endereco.BAIRROS_CHOICES]})
+
+@login_required(login_url="login/")
+def apagar_pessoa(request, pessoa_id):
+    pessoa = get_object_or_404(Pessoa, id=pessoa_id)
+    if request.method == 'POST':
+        pessoa.delete()
+    return redirect('pessoas')
 
 @login_required(login_url='login/')
 def relatorio(request):
@@ -213,26 +255,23 @@ def relatorio(request):
         'Vila Lenzi': 'rgba(154, 83, 176, 0.7)',
         'Vila Nova': 'rgba(255, 77, 231, 0.7)'
     }
-
-
-
        
     if selected_bairros:
         selected_deficiencias = None
         for bairro in selected_bairros:
-            pessoas_bairro = pessoas.filter(endereco__bairro__icontains=bairro)
+            pessoas_bairro = pessoas.filter(Q(endereco__bairro__icontains=bairro))
             if pessoas_bairro.exists():
                 bairros_com_data.append(bairro)
                 for deficiencia in deficiencias_por_bairro.keys():
-                    deficiencias_por_bairro[deficiencia].append(pessoas_bairro.filter(deficiencias__icontains=deficiencia).count())
+                    deficiencias_por_bairro[deficiencia].append(pessoas_bairro.filter(Q(deficiencias__icontains=deficiencia)).count())
     if selected_deficiencias:
         selected_bairros = None
         for deficiencia in selected_deficiencias:
-            pessoas_deficiencia = pessoas.filter(deficiencias__icontains=deficiencia)
+            pessoas_deficiencia = pessoas.filter(Q(deficiencias__icontains=deficiencia))
             if pessoas_deficiencia.exists():
                 deficiencias_com_data.append(deficiencia)
                 for bairro in bairro_por_deficiencia.keys():
-                    bairro_por_deficiencia[bairro].append(pessoas_deficiencia.filter(endereco__bairro__icontains=bairro).count())
+                    bairro_por_deficiencia[bairro].append(pessoas_deficiencia.filter(Q(endereco__bairro__icontains=bairro)).count())
                 
     context = {
         'pessoas': pessoas,

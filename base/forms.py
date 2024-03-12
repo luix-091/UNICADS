@@ -5,7 +5,7 @@ from datetime import date
 class PessoaForm(forms.ModelForm):
     detalhes = forms.CharField(required=False)
     necessidades = forms.CharField(required=False)
-
+    
     def clean_data_nasc(self):
         data_nasc = self.cleaned_data.get('data_nasc')
         if data_nasc and (data_nasc > date.today()) or data_nasc.year < 1900:
