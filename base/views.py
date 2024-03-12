@@ -127,9 +127,13 @@ def editar_pessoa(request, pessoa_id):
                         bairro=endereco_data['bairro'],
                         regiao=endereco_data['regiao']
                     )
+                print(pessoa.endereco)
+                print(Pessoa.objects.filter(Q(endereco__logradouro__icontains=pessoa.endereco.logradouro) &
+                                                                                               Q(endereco__bairro__icontains=pessoa.endereco.bairro) &
+                                                                                               Q(endereco__regiao__icontains=pessoa.endereco.regiao)).count())
                 if pessoa.endereco and pessoa.endereco != endereco and Pessoa.objects.filter(Q(endereco__logradouro__icontains=pessoa.endereco.logradouro) &
                                                                                                Q(endereco__bairro__icontains=pessoa.endereco.bairro) &
-                                                                                               Q(endereco__regiao__icontains=pessoa.endereco.regiao)).count() == 0:
+                                                                                               Q(endereco__regiao__icontains=pessoa.endereco.regiao)).count() > 1:
                     pessoa.endereco.delete()
                 pessoa.endereco = endereco
             deficiencias = request.POST.getlist('deficiencias')
@@ -259,7 +263,7 @@ def relatorio(request):
     if selected_bairros:
         selected_deficiencias = None
         for bairro in selected_bairros:
-            pessoas_bairro = pessoas.filter(Q(endereco__bairro__icontains=bairro))
+            pessoas_bairro = pessoas.filter(endereco__bairro=bairro)
             if pessoas_bairro.exists():
                 bairros_com_data.append(bairro)
                 for deficiencia in deficiencias_por_bairro.keys():
@@ -271,7 +275,7 @@ def relatorio(request):
             if pessoas_deficiencia.exists():
                 deficiencias_com_data.append(deficiencia)
                 for bairro in bairro_por_deficiencia.keys():
-                    bairro_por_deficiencia[bairro].append(pessoas_deficiencia.filter(Q(endereco__bairro__icontains=bairro)).count())
+                    bairro_por_deficiencia[bairro].append(pessoas_deficiencia.filter(endereco__bairro=bairro).count())
                 
     context = {
         'pessoas': pessoas,

@@ -56,7 +56,7 @@
           {% csrf_token %}
           <button class="editar">Editar</button>
         </form>
-        <form method="DELETE" action="{% url 'apagar' pessoa.id %}">
+        <form method="POST" action="{% url 'apagar' pessoa.id %}">
           {% csrf_token %}
           <button type="submit" onclick="return confirm('Tem certeza que deseja apagar esta pessoa?')" class="apagar">
             Apagar
