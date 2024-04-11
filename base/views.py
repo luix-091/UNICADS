@@ -63,7 +63,7 @@ def cad_pessoa(request):
                 try:
                     endereco = Endereco.objects.get(
                         Q(logradouro__icontains=endereco_data['logradouro']) &
-                        Q(bairro__icontains=endereco_data['bairro']) &
+                        Q(bairro=endereco_data['bairro']) &
                         Q(regiao__icontains=endereco_data['regiao'])
                     )
                 except Endereco.DoesNotExist:
@@ -118,7 +118,7 @@ def editar_pessoa(request, pessoa_id):
                 try:
                     endereco = Endereco.objects.get(
                         Q(logradouro__icontains=endereco_data['logradouro']) &
-                        Q(bairro__icontains=endereco_data['bairro']) &
+                        Q(bairro=endereco_data['bairro']) &
                         Q(regiao__icontains=endereco_data['regiao'])
                     )
                 except Endereco.DoesNotExist:
@@ -127,13 +127,7 @@ def editar_pessoa(request, pessoa_id):
                         bairro=endereco_data['bairro'],
                         regiao=endereco_data['regiao']
                     )
-                print(pessoa.endereco)
-                print(Pessoa.objects.filter(Q(endereco__logradouro__icontains=pessoa.endereco.logradouro) &
-                                                                                               Q(endereco__bairro__icontains=pessoa.endereco.bairro) &
-                                                                                               Q(endereco__regiao__icontains=pessoa.endereco.regiao)).count())
-                if pessoa.endereco and pessoa.endereco != endereco and Pessoa.objects.filter(Q(endereco__logradouro__icontains=pessoa.endereco.logradouro) &
-                                                                                               Q(endereco__bairro__icontains=pessoa.endereco.bairro) &
-                                                                                               Q(endereco__regiao__icontains=pessoa.endereco.regiao)).count() > 1:
+                if pessoa.endereco and pessoa.endereco != endereco and not Pessoa.objects.filter(endereco=pessoa.endereco).exclude(id=pessoa.id).exists():
                     pessoa.endereco.delete()
                 pessoa.endereco = endereco
             deficiencias = request.POST.getlist('deficiencias')

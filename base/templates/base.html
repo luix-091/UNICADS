@@ -1,210 +1,209 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="{% static 'imgs/logo2.ico' %}"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="{% block css %}{% endblock %}" />
-    <title>{% block titulo %}UNICADS{% endblock %}</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Kanit&family=Lato:wght@700&family=Quicksand&display=swap");
-      body {
-        margin: 0;
-        padding: 0;
-        min-height: 900px;
-        min-width: fit-content;
-        background-color: rgb(215, 236, 255);
-      }
-      footer {
-        background-color: #2e2a2d;
-        color: #fff;
-        text-align: center;
-        padding: 0;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-      }
-      header {
-        display: flex;
-        width: 100%;
-        background: linear-gradient(to right, #2a76c5, #ffffff 95%);
-        color: #fff;
-      }
-      .header-content {
-        display: flex;
-        width: 100%;
-        align-items: center;
-        justify-content: space-between;
-        height: 100px;
-      }
 
-      .header-esquerda a {
-        padding-left: 5px;
-        padding-right: 5px;
-        font-size: 56px;
-        font-family: "Lato", sans-serif;
-        text-decoration: none;
-        color: #36519a;
-        margin-left: 30px;
-        border-radius: 5px;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="{% static 'imgs/logo2.ico' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="{% block css %}{% endblock %}" />
+  <title>{% block titulo %}UNICADS{% endblock %}</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Kanit&family=Lato:wght@700&family=Quicksand&display=swap");
 
-      .header-esquerda a:hover {
-        transition: 0.5s all;
-        opacity: 0.7;
-      }
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 900px;
+      min-width: fit-content;
+      background-color: rgb(215, 236, 255);
+    }
 
-      .header-centro {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        height: 100px;
-      }
+    footer {
+      background-color: #2e2a2d;
+      color: #fff;
+      text-align: center;
+      padding: 0;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
 
-      .pessoas,
-      .relatorio {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+    header {
+      display: flex;
+      width: 100%;
+      background: linear-gradient(to right, #2a76c5, #ffffff 95%);
+      color: #fff;
+    }
 
-      .pessoas a,
-      .relatorio a {
-        display: inline-block;
-        padding: 10px;
-        margin-top: -7px;
-        font-size: 42px;
-        font-family: "Kanit", sans-serif;
-        text-decoration: none;
-        color: #ffffff;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        position: relative;
-      }
+    .header-content {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      height: 100px;
+    }
 
-      .pessoas i,
-      .relatorio i {
-        margin-left: 10px;
-        font-size: 32px;
-      }
+    .header-esquerda a {
+      padding-left: 5px;
+      padding-right: 5px;
+      font-size: 56px;
+      font-family: "Lato", sans-serif;
+      text-decoration: none;
+      color: #36519a;
+      margin-left: 30px;
+      border-radius: 5px;
+    }
 
-      .pessoas a::after,
-      .relatorio a::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 10px;
-        height: 3px;
-        width: 100%;
-        background-color: #ffffff;
-        transition: background-color 0.3s ease;
-      }
+    .header-esquerda a:hover {
+      transition: 0.5s all;
+      opacity: 0.7;
+    }
 
-      .pessoas a:hover {
-        color: #36519a;
-      }
+    .header-centro {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      height: 100px;
+    }
 
-      .relatorio a:hover {
-        color: #092266;
-      }
+    .pessoas,
+    .relatorio {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-      .pessoas a:hover::after,
-      .relatorio a:hover::after {
-        background-color: #000000;
-      }
+    .pessoas a,
+    .relatorio a {
+      display: inline-block;
+      padding: 10px;
+      margin-top: -7px;
+      font-size: 42px;
+      font-family: "Kanit", sans-serif;
+      text-decoration: none;
+      color: #ffffff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      position: relative;
+    }
 
-      .header-direita {
-        display: flex;
-        height: 100px;
-      }
+    .pessoas i,
+    .relatorio i {
+      margin-left: 10px;
+      font-size: 32px;
+    }
 
-      .header-content img {
-        margin-right: 10px;
-        height: 100px;
-      }
+    .pessoas a::after,
+    .relatorio a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 10px;
+      height: 3px;
+      width: 100%;
+      background-color: #ffffff;
+      transition: background-color 0.3s ease;
+    }
 
-      .header-content button {
-        font-family: "Quicksand", sans-serif;
-        margin: 20px;
-        min-width: 120px;
-        font-size: 22px;
-        background-color: #ffcfcf;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
+    .pessoas a:hover {
+      color: #36519a;
+    }
 
-      .header-content button:hover {
-        background-color: #ff9999;
-      }
+    .relatorio a:hover {
+      color: #092266;
+    }
 
-      .header-content button:focus {
-        outline: none;
-      }
+    .pessoas a:hover::after,
+    .relatorio a:hover::after {
+      background-color: #000000;
+    }
 
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
+    .header-direita {
+      display: flex;
+      height: 100px;
+    }
 
-      ::-webkit-scrollbar-track {
-        background: rgb(255, 255, 255);
-      }
+    .header-content img {
+      margin-right: 10px;
+      height: 100px;
+    }
 
-      ::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 16px;
-      }
+    .header-content button {
+      font-family: "Quicksand", sans-serif;
+      margin: 20px;
+      min-width: 120px;
+      font-size: 22px;
+      background-color: #ffcfcf;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-      ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <div class="header-content">
-        <div class="header-esquerda">
-          <a href="{% url 'home' %}">UNICADS</a>
+    .header-content button:hover {
+      background-color: #ff9999;
+    }
+
+    .header-content button:focus {
+      outline: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgb(255, 255, 255);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 16px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="header-esquerda">
+        <a href="{% url 'home' %}">UNICADS</a>
+      </div>
+      {% if not login %}
+      <div class="header-centro">
+        <div class="pessoas">
+          <a href="{% url 'pessoas' %}">
+            Pessoas
+            <span><i class="fas fa-user"></i></span>
+          </a>
         </div>
-        {% if not login %}
-        <div class="header-centro">
-          <div class="pessoas">
-            <a href="{% url 'pessoas' %}">
-              Pessoas
-              <span><i class="fas fa-user"></i></span>
-            </a>
-          </div>
-          <div class="relatorio">
-            <a href="{% url 'relatorio' %}">
-              Relatório
-              <span><i class="fas fa-newspaper"></i></span>
-            </a>
-          </div>
-        </div>
-        {% endif %}
-        <div class="header-direita">
-          {% if user.is_authenticated %}
-          <button
-            type="submit"
-            class="logout"
-            onclick="location.href='{% url 'logout' %}'"
-          >
-            Sair
-          </button>
-          {% endif %}
-          <img src="{% static 'imgs/logo2.png' %}" />
+        <div class="relatorio">
+          <a href="{% url 'relatorio' %}">
+            Relatório
+            <span><i class="fas fa-newspaper"></i></span>
+          </a>
         </div>
       </div>
-    </header>
-    {% block conteudo %} {% endblock %}
-    <footer>
-      <p>© 2024 UNICADS. Todos os direitos reservados.</p>
-    </footer>
-  </body>
+      {% endif %}
+      <div class="header-direita">
+        {% if user.is_authenticated %}
+        <button type="submit" class="logout" onclick="location.href='{% url 'logout' %}'">
+          Sair
+        </button>
+        {% endif %}
+        <img src="{% static 'imgs/logo2.png' %}" />
+      </div>
+    </div>
+  </header>
+  {% block conteudo %} {% endblock %}
+  <footer>
+    <p>© 2024 UNICADS. Todos os direitos reservados.</p>
+  </footer>
+</body>
+
 </html>
